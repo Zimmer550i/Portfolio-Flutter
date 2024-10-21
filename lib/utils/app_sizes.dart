@@ -3,7 +3,7 @@ class AppSizes {
   static const double mediumPadding = 16.0;
   static const double largePadding = 32.0;
 
-  static const double webPadding = 300;
+  static const double webPadding = 0.85;
   static const double webAspectRatio = 1.928;
 
   static const double smallText = 12.0;
