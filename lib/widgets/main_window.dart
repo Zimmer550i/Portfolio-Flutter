@@ -20,7 +20,7 @@ class _MainWindowState extends State<MainWindow> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     double width = screenSize.width * AppSizes.webPadding;
-    double height = width / AppSizes.webAspectRatio;
+    double height = screenSize.height * AppSizes.webPadding;
 
     return Container(
       width: width,
@@ -63,7 +63,14 @@ class _MainWindowState extends State<MainWindow> {
             const SizedBox(
               height: AppSizes.largePadding,
             ),
-            AppContents.pages[index],
+            Expanded(
+              child: LayoutBuilder(
+                builder: (context, constraint) {
+                  bool isMobile = constraint.maxHeight >= constraint.maxWidth;
+                  return AppContents.pages[index](isMobile: isMobile);
+                },
+              ),
+            ),
           ],
         ),
       ),
