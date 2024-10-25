@@ -1,6 +1,7 @@
 import 'dart:math';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:portfolio_flutter/utils/app_sizes.dart';
 import 'package:portfolio_flutter/widgets/main_window.dart';
 
 class App extends StatefulWidget {
@@ -13,10 +14,12 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   double _rotationX = 0;
   double _rotationY = 0;
+  double mouseX = 0;
+  double mouseY = 0;
 
   void _updateRotationAngles(PointerHoverEvent event, Size screenSize) {
-    final mouseX = event.position.dx;
-    final mouseY = event.position.dy;
+    mouseX = event.position.dx;
+    mouseY = event.position.dy;
 
     final screenWidth = screenSize.width;
     final screenHeight = screenSize.height;
@@ -29,11 +32,14 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: MouseRegion(
+        cursor: SystemMouseCursors.none,
         onHover: (event) {
-          _updateRotationAngles(event, MediaQuery.of(context).size); // Update rotation angles based on mouse movement
+          _updateRotationAngles(
+              event,
+              MediaQuery.of(context)
+                  .size); // Update rotation angles based on mouse movement
         },
         child: Transform(
           alignment: FractionalOffset.center,
@@ -41,8 +47,22 @@ class _AppState extends State<App> {
             ..setEntry(3, 2, 0.001) // Perspective
             ..rotateX(_rotationX) // Rotate around X-axis (up/down)
             ..rotateY(_rotationY), // Rotate around Y-axis (left/right)
-          child: const Center(
-            child: MainWindow(),
+          child: Stack(
+            children: [
+              const Center(
+                child: MainWindow(),
+              ),
+              Positioned(
+                left: mouseX,
+                top: mouseY,
+                child: IgnorePointer(
+                  child: Image.asset(
+                    'assets/icons/cursor.png',
+                    height: AppSizes.iconSizeMedium,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
