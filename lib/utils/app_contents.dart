@@ -15,7 +15,7 @@ class AppContents {
   ];
   static const List<Map<String, String>> social = [
     {
-      "icon": "assets/icons/github.png",
+      "icon": "assets/icons/github.svg",
       "link": "https://github.com/Zimmer550i",
     },
     // {
@@ -23,11 +23,11 @@ class AppContents {
     //   "link": "https://www.facebook.com/sakif049/",
     // },
     {
-      "icon": "assets/icons/linkedin.png",
+      "icon": "assets/icons/linkedin.svg",
       "link": "https://www.linkedin.com/in/wasiul-islam-398a71189/",
     },
     {
-      "icon": "assets/icons/codeforces.png",
+      "icon": "assets/icons/codeforces.svg",
       "link": "https://codeforces.com/profile/Zimmer550i",
     },
   ];

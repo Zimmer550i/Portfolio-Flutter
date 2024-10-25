@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio_flutter/utils/app_contents.dart';
 import 'package:portfolio_flutter/utils/app_texts.dart';
 import 'package:portfolio_flutter/widgets/custom_button.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:portfolio_flutter/widgets/social_button.dart';
 
 import '../utils/app_sizes.dart';
 
@@ -73,33 +73,21 @@ class ProfilePage extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: AppSizes.mediumPadding),
             child: Row(
               children: [
-                CustomButton(),
+                CustomButton(
+                  icon: Icons.text_snippet_rounded,
+                  text: "Download CV",
+                ),
                 SizedBox(
                   width: AppSizes.mediumPadding,
                 ),
-                CustomButton(),
+                CustomButton(
+                  icon: Icons.email_rounded,
+                  text: "Contact Me",
+                  link: "mailto:sakif049@gmail.com",
+                ),
               ],
             ),
           ),
-        ),
-        Row(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ...AppContents.social.map((e) {
-              return GestureDetector(
-                onTap: () {
-                  launchUrlString(e["link"]!);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(right: AppSizes.mediumPadding),
-                  child: Image.asset(
-                    e["icon"]!,
-                    width: AppSizes.largePadding,
-                  ),
-                ),
-              );
-            })
-          ],
         ),
       ],
     );
@@ -108,19 +96,44 @@ class ProfilePage extends StatelessWidget {
   Center firstSection(BuildContext context) {
     return Center(
       child: LayoutBuilder(builder: (context, constraint) {
-        return Container(
-          decoration: BoxDecoration(
-            border: Border.all(width: AppSizes.smallPadding),
-            borderRadius: BorderRadius.circular(AppSizes.mediumPadding),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(AppSizes.smallPadding),
-            child: Image.asset(
-              "assets/icons/facebook.png",
-              // "assets/images/sakif.jpg",
-              height: constraint.maxWidth / 2,
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(width: AppSizes.smallPadding),
+                borderRadius: BorderRadius.circular(AppSizes.mediumPadding),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(AppSizes.smallPadding),
+                child: Image.asset(
+                  // "assets/icons/facebook.png",
+                  "assets/images/sakif.jpg",
+                  height: constraint.maxWidth / 2,
+                ),
+              ),
             ),
-          ),
+            const SizedBox(
+              height: AppSizes.mediumPadding,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ...AppContents.social.map((e) {
+                  return Padding(
+                    padding:
+                        const EdgeInsets.only(right: AppSizes.mediumPadding),
+                    child: SocialButton(
+                      imgAsset: e["icon"]!,
+                      url: e["link"]!,
+                    ),
+                  );
+                })
+              ],
+            ),
+          ],
         );
       }),
     );
