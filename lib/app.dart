@@ -41,29 +41,29 @@ class _AppState extends State<App> {
               MediaQuery.of(context)
                   .size); // Update rotation angles based on mouse movement
         },
-        child: Transform(
-          alignment: FractionalOffset.center,
-          transform: Matrix4.identity()
-            ..setEntry(3, 2, 0.001) // Perspective
-            ..rotateX(_rotationX) // Rotate around X-axis (up/down)
-            ..rotateY(_rotationY), // Rotate around Y-axis (left/right)
-          child: Stack(
-            children: [
-              const Center(
+        child: Stack(
+          children: [
+            Transform(
+              alignment: FractionalOffset.center,
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, 0.001) // Perspective
+                ..rotateX(_rotationX) // Rotate around X-axis (up/down)
+                ..rotateY(_rotationY), // Rotate around Y-axis (left/right)
+              child: const Center(
                 child: MainWindow(),
               ),
-              Positioned(
-                left: mouseX,
-                top: mouseY,
-                child: IgnorePointer(
-                  child: Image.asset(
-                    'assets/icons/cursor.png',
-                    height: AppSizes.iconSizeMedium,
-                  ),
+            ),
+            Positioned(
+              left: mouseX,
+              top: mouseY,
+              child: IgnorePointer(
+                child: Image.asset(
+                  'assets/icons/cursor.png',
+                  height: AppSizes.iconSizeMedium,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
