@@ -7,8 +7,10 @@ import 'package:url_launcher/url_launcher_string.dart';
 class SocialButton extends StatefulWidget {
   final String imgAsset;
   final String url;
+  final double size;
   const SocialButton({
     super.key,
+    this.size = AppSizes.iconSizeSmall,
     required this.imgAsset,
     required this.url,
   });
@@ -42,13 +44,13 @@ class _SocialButtonState extends State<SocialButton> {
             color: isFocused ? AppColors.black : null,
             borderRadius: BorderRadius.circular(AppSizes.smallPadding),
             border: Border.all(
-              width: AppSizes.smallPadding/2,
+              width: AppSizes.smallPadding / 2,
             ),
           ),
-          padding: const EdgeInsets.all(AppSizes.smallPadding / 3),
+          padding: EdgeInsets.all(widget.size / 10),
           child: SvgPicture.asset(
             widget.imgAsset,
-            width: AppSizes.iconSizeSmall,
+            width: widget.size,
             // ignore: deprecated_member_use
             color: isFocused ? AppColors.backgroundColor : AppColors.black,
           ),
