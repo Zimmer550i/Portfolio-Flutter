@@ -64,12 +64,7 @@ class _MainWindowState extends State<MainWindow> {
               height: AppSizes.largePadding,
             ),
             Expanded(
-              child: LayoutBuilder(
-                builder: (context, constraint) {
-                  bool isMobile = constraint.maxHeight >= constraint.maxWidth;
-                  return AppContents.pages[index](isMobile: isMobile);
-                },
-              ),
+              child: AppContents.pages[index],
             ),
           ],
         ),

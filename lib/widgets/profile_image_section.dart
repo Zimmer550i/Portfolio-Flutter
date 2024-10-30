@@ -1,13 +1,13 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:portfolio_flutter/utils/app_contents.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
 import 'package:portfolio_flutter/widgets/social_button.dart';
 
 class ProfileImageSection extends StatelessWidget {
+  final bool isMobile;
   const ProfileImageSection({
     super.key,
+    this.isMobile = false,
   });
 
   @override
@@ -28,8 +28,8 @@ class ProfileImageSection extends StatelessWidget {
               child: Image.asset(
                 // "assets/icons/facebook.png",
                 "assets/images/sakif.jpg",
-                height: constraint.maxWidth < constraint.maxHeight / 1.5 ? constraint.maxWidth / 1.5 : constraint.maxHeight /2,
-                width: constraint.maxWidth < constraint.maxHeight / 1.5 ? constraint.maxWidth / 1.5 : constraint.maxHeight /2,
+                height: getSize(constraint),
+                width: getSize(constraint),
               ),
             ),
           ),
@@ -41,8 +41,7 @@ class ProfileImageSection extends StatelessWidget {
             children: [
               ...AppContents.social.map((e) {
                 return Padding(
-                  padding:
-                      const EdgeInsets.only(right: AppSizes.mediumPadding),
+                  padding: const EdgeInsets.only(right: AppSizes.mediumPadding),
                   child: SocialButton(
                     imgAsset: e["icon"]!,
                     url: e["link"]!,
@@ -55,5 +54,14 @@ class ProfileImageSection extends StatelessWidget {
         ],
       );
     });
+  }
+
+  double getSize(BoxConstraints constraint) {
+    if (isMobile) {
+      return constraint.maxHeight / 1.3;
+    }
+    return constraint.maxWidth < constraint.maxHeight / 1.5
+        ? constraint.maxWidth / 1.5
+        : constraint.maxHeight / 2;
   }
 }
