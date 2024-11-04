@@ -3,7 +3,11 @@ import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 import 'package:portfolio_flutter/project_model.dart';
 import 'package:portfolio_flutter/utils/app_contents.dart';
 import 'package:portfolio_flutter/utils/app_texts.dart';
+import 'package:portfolio_flutter/widgets/left_project_window.dart';
+import 'package:portfolio_flutter/widgets/mobile_project_window.dart';
 import 'package:portfolio_flutter/widgets/page_view_index.dart';
+import 'package:portfolio_flutter/widgets/project_image_section.dart';
+import 'package:portfolio_flutter/widgets/right_project_window.dart';
 import 'package:portfolio_flutter/widgets/split_project_window.dart';
 
 import '../utils/app_colors.dart';
@@ -18,12 +22,19 @@ class ProjectPage extends StatefulWidget {
 
 class _ProjectPageState extends State<ProjectPage> {
   int index = 0;
+  late PageController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = PageController();
+  }
 
   @override
   Widget build(BuildContext context) {
     Project project = AppContents.projects[index];
     return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxHeight > constraints.maxWidth) {
+      if (constraints.maxHeight > constraints.maxWidth * 0.8) {
         return mobileLayout(project);
       } else {
         return webLayout(project);
@@ -40,6 +51,9 @@ class _ProjectPageState extends State<ProjectPage> {
               setState(() {
                 index--;
               });
+              _controller.animateToPage(index,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.decelerate);
             }
           },
           mouseCursor: SystemMouseCursors.none,
@@ -55,9 +69,13 @@ class _ProjectPageState extends State<ProjectPage> {
                 ),
               ),
               Expanded(
-                  child: SplitProjectWindow(
-                project: project,
-              )),
+                child: PageView.builder(
+                    controller: _controller,
+                    itemCount: AppContents.projects.length,
+                    itemBuilder: (context, idx) {
+                      return getProjectWindow(AppContents.projects[idx]);
+                    }),
+              ),
               PageViewIndex(index: index),
             ],
           ),
@@ -68,7 +86,14 @@ class _ProjectPageState extends State<ProjectPage> {
               setState(() {
                 index++;
               });
+            } else {
+              setState(() {
+                index = 0;
+              });
             }
+            _controller.animateToPage(index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.decelerate);
           },
           mouseCursor: SystemMouseCursors.none,
           icon: const Icon(Icons.arrow_forward_ios_rounded),
@@ -84,7 +109,7 @@ class _ProjectPageState extends State<ProjectPage> {
           project.title,
           style: AppTexts.heading,
         ),
-        Expanded(child: SplitProjectWindow(project: project)),
+        Expanded(child: MobileProjectWindow(project: project)),
         Container(
           decoration: BoxDecoration(
             color: AppColors.black,
@@ -93,6 +118,9 @@ class _ProjectPageState extends State<ProjectPage> {
           height: AppSizes.smallPadding,
           width: double.infinity,
         ),
+        const SizedBox(
+          height: AppSizes.mediumPadding,
+        ),
         PageViewDotIndicator(
             currentItem: index,
             count: AppContents.projects.length,
@@ -100,5 +128,20 @@ class _ProjectPageState extends State<ProjectPage> {
             selectedColor: AppColors.black),
       ],
     );
+  }
+
+  Widget getProjectWindow(Project project) {
+    switch (project.type) {
+      case DisplayType.split:
+        return SplitProjectWindow(project: project);
+      case DisplayType.left:
+        return LeftProjectWindow(project: project);
+      case DisplayType.full:
+        return ProjectImageSection(project: project, i: 0);
+      case DisplayType.right:
+        return RightProjectWindow(project: project);
+      default:
+        return SplitProjectWindow(project: project);
+    }
   }
 }

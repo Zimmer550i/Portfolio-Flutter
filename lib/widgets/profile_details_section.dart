@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio_flutter/utils/app_contents.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
 import 'package:portfolio_flutter/utils/app_texts.dart';
 import 'package:portfolio_flutter/widgets/custom_button.dart';
@@ -36,10 +37,16 @@ class ProfileDetailsSection extends StatelessWidget {
             ),
           ],
         ),
-        const Text(
-          "Flutter Developer",
-          style: AppTexts.bodyTextLarge,
-        ),
+        LayoutBuilder(builder: (context, constraints) {
+          double width = constraints.maxWidth * 0.8;
+          return SizedBox(
+            width: width,
+            child: const Text(
+              AppContents.profileDescription,
+              style: AppTexts.bodyTextLarge,
+            ),
+          );
+        }),
         const FittedBox(
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: AppSizes.mediumPadding),
@@ -48,7 +55,8 @@ class ProfileDetailsSection extends StatelessWidget {
                 CustomButton(
                   icon: Icons.text_snippet_rounded,
                   text: "Get CV",
-                  link: "https://www.canva.com/design/DAFoT4qxCXU/8fBNTXshbHKKSSUFOwfHXw/view?utm_content=DAFoT4qxCXU&utm_campaign=designshare&utm_medium=link&utm_source=editor",
+                  link:
+                      "https://www.canva.com/design/DAFoT4qxCXU/8fBNTXshbHKKSSUFOwfHXw/view?utm_content=DAFoT4qxCXU&utm_campaign=designshare&utm_medium=link&utm_source=editor",
                 ),
                 SizedBox(
                   width: AppSizes.mediumPadding,
