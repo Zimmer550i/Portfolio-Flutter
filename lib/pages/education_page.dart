@@ -8,7 +8,7 @@ class EducationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxHeight > constraints.maxWidth) {
-        return Column(
+        return const Column(
           children: [],
         );
       } else {
@@ -40,7 +40,7 @@ class EducationPage extends StatelessWidget {
               ),
             ),
         ),
-        Text("Rajshahi Model School and College"),
+        const Text("Rajshahi Model School and College"),
       ],
     );
   }

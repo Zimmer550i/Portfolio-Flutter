@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_flutter/project_model.dart';
-import 'package:portfolio_flutter/utils/app_sizes.dart';
 import 'package:portfolio_flutter/widgets/project_details_section.dart';
 import 'package:portfolio_flutter/widgets/project_image_section.dart';
 

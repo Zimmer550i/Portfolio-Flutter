@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:portfolio_flutter/utils/app_colors.dart';
 import 'package:portfolio_flutter/utils/app_contents.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
 import 'package:portfolio_flutter/utils/app_texts.dart';
@@ -97,15 +96,15 @@ class InfoPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           "Education:",
           style: AppTexts.heading,
         ),
-        SizedBox(
+        const SizedBox(
           height: AppSizes.smallPadding,
         ),
         Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             left: AppSizes.largePadding,
           ),
           child: Column(
@@ -117,11 +116,11 @@ class InfoPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
+              const Text(
                 "Computer Science and Engineering",
                 style: AppTexts.bodyText,
               ),
-              Text(
+              const Text(
                 "Graduation: Dec 2024",
                 style: AppTexts.bodyText,
               ),
@@ -136,15 +135,15 @@ class InfoPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           "Skills:",
           style: AppTexts.heading,
         ),
-        SizedBox(
+        const SizedBox(
           height: AppSizes.smallPadding,
         ),
         Padding(
-          padding: EdgeInsets.only(left: AppSizes.largePadding),
+          padding: const EdgeInsets.only(left: AppSizes.largePadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -180,7 +179,7 @@ class InfoPage extends StatelessWidget {
   }
 
   contactInfo() {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -191,7 +190,7 @@ class InfoPage extends StatelessWidget {
           height: AppSizes.smallPadding,
         ),
         Padding(
-          padding: const EdgeInsets.only(
+          padding: EdgeInsets.only(
             left: AppSizes.largePadding,
           ),
           child: Column(
@@ -199,7 +198,7 @@ class InfoPage extends StatelessWidget {
               Row(
                 children: [
                   Icon(Icons.email_rounded),
-                  const SizedBox(
+                  SizedBox(
                     width: AppSizes.mediumPadding,
                   ),
                   Text(
@@ -208,7 +207,7 @@ class InfoPage extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(
+              SizedBox(
                 height: AppSizes.mediumPadding,
               ),
               Row(
@@ -217,7 +216,7 @@ class InfoPage extends StatelessWidget {
                     Icons.location_pin,
 
                   ),
-                  const SizedBox(
+                  SizedBox(
                     width: AppSizes.mediumPadding,
                   ),
                   Text(

@@ -32,6 +32,14 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    if (MediaQuery.of(context).size.width <
+        MediaQuery.of(context).size.height) {
+      return const Scaffold(
+        body: Center(
+          child: MainWindow(),
+        ),
+      );
+    }
     return Scaffold(
       body: MouseRegion(
         cursor: SystemMouseCursors.none,
