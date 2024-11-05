@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:portfolio_flutter/project_model.dart';
 import 'package:portfolio_flutter/utils/app_colors.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
@@ -34,13 +35,14 @@ class ProjectDetailsSection extends StatelessWidget {
             child: Wrap(
               alignment: WrapAlignment.start,
               spacing: AppSizes.smallPadding,
+              runSpacing: AppSizes.smallPadding,
               children: [
                 ...project.tech.map((item) {
                   return Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppSizes.smallPadding),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: AppSizes.smallPadding),
                     decoration: BoxDecoration(
-                      color: AppColors.primaryColor,
+                      color: AppColors.black,
                       borderRadius: BorderRadius.circular(
                         AppSizes.largePadding,
                       ),
@@ -57,21 +59,30 @@ class ProjectDetailsSection extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: AppSizes.smallPadding,
+            height: AppSizes.mediumPadding,
           ),
           for (int i = 0; i < project.highlight.length; i++)
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.check),
-                Expanded(
-                  child: Text(
-                    project.highlight[i],
-                    style: AppTexts.bodyTextLarge,
-                    maxLines: 5,
+            Padding(
+              padding: const EdgeInsets.only(bottom: AppSizes.smallPadding),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset(
+                    "icons/arrow_forward.svg",
+                    height: AppSizes.iconSizeSmall,
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    width: AppSizes.mediumPadding,
+                  ),
+                  Expanded(
+                    child: Text(
+                      project.highlight[i],
+                      style: AppTexts.bodyTextLarge,
+                      maxLines: 5,
+                    ),
+                  ),
+                ],
+              ),
             ),
           (constraints.hasBoundedHeight)
               ? Expanded(child: Container())
@@ -79,10 +90,13 @@ class ProjectDetailsSection extends StatelessWidget {
                   height: AppSizes.mediumPadding,
                 ),
           Wrap(
+            spacing: AppSizes.mediumPadding,
+              runSpacing: AppSizes.smallPadding,
             children: [
               for (int i = 0; i < project.links.length; i++)
                 CustomButton(
-                  icon: Icons.catching_pokemon_rounded,
+                  icon: project.links[i].icon,
+                  svgPath: project.links[i].svgPath,
                   text: project.links[i].name,
                   link: project.links[i].url,
                 ),

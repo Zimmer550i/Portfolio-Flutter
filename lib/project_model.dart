@@ -11,13 +11,13 @@ enum DisplayType { split, right, left, full }
 
 class ProjectLink {
   final IconData? icon;
-  final String? iconAsset;
+  final String? svgPath;
   final String name;
   final String url;
 
   ProjectLink({
     this.icon,
-    this.iconAsset,
+    this.svgPath,
     required this.name,
     required this.url,
   });
@@ -32,8 +32,10 @@ class Project {
   final List<String> assets;
   final List<String> highlight;
   final List<ProjectLink> links;
+  final int year;
 
   Project({
+    required this.year,
     required this.mainTech,
     required this.type,
     required this.title,

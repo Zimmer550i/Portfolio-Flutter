@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 import 'package:portfolio_flutter/project_model.dart';
 import 'package:portfolio_flutter/utils/app_contents.dart';
@@ -45,8 +46,8 @@ class _ProjectPageState extends State<ProjectPage> {
   Row webLayout(Project project) {
     return Row(
       children: [
-        IconButton(
-          onPressed: () {
+        GestureDetector(
+          onTap: () {
             if (index > 0) {
               setState(() {
                 index--;
@@ -56,8 +57,13 @@ class _ProjectPageState extends State<ProjectPage> {
                   curve: Curves.decelerate);
             }
           },
-          mouseCursor: SystemMouseCursors.none,
-          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          child: Visibility(
+            visible: index != 0,
+            child: SvgPicture.asset(
+              "icons/arrow_backward.svg",
+              width: AppSizes.iconSizeMedium,
+            ),
+          ),
         ),
         Expanded(
           child: Column(
@@ -80,23 +86,24 @@ class _ProjectPageState extends State<ProjectPage> {
             ],
           ),
         ),
-        IconButton(
-          onPressed: () {
+        GestureDetector(
+          onTap: () {
             if (index < AppContents.projects.length - 1) {
               setState(() {
                 index++;
               });
-            } else {
-              setState(() {
-                index = 0;
-              });
+              _controller.animateToPage(index,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.decelerate);
             }
-            _controller.animateToPage(index,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.decelerate);
           },
-          mouseCursor: SystemMouseCursors.none,
-          icon: const Icon(Icons.arrow_forward_ios_rounded),
+          child: Visibility(
+            visible: index < AppContents.projects.length - 1,
+            child: SvgPicture.asset(
+              "icons/arrow_forward.svg",
+              width: AppSizes.iconSizeMedium,
+            ),
+          ),
         ),
       ],
     );

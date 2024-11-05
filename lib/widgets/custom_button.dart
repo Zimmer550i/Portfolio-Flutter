@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:portfolio_flutter/utils/app_colors.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
 import 'package:portfolio_flutter/utils/app_texts.dart';
@@ -6,12 +7,15 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 class CustomButton extends StatefulWidget {
   final IconData? icon;
+  final String? svgPath;
   final String? text;
   final String? link;
   const CustomButton({
     super.key,
     this.icon,
-    this.text, this.link,
+    this.text,
+    this.link,
+    this.svgPath,
   });
 
   @override
@@ -35,7 +39,7 @@ class _CustomButtonState extends State<CustomButton> {
       },
       child: GestureDetector(
         onTap: () {
-          if(widget.link != null){
+          if (widget.link != null) {
             launchUrlString(widget.link!);
           }
         },
@@ -57,8 +61,18 @@ class _CustomButtonState extends State<CustomButton> {
                   ? Container()
                   : Icon(
                       widget.icon,
-                      color:
-                          isFocused ? AppColors.backgroundColor : AppColors.black,
+                      color: isFocused
+                          ? AppColors.backgroundColor
+                          : AppColors.black,
+                    ),
+              widget.svgPath == null
+                  ? Container()
+                  : SvgPicture.asset(
+                      widget.svgPath!,
+                      height: AppSizes.iconSizeSmall,
+                      color: isFocused
+                          ? AppColors.backgroundColor
+                          : AppColors.black,
                     ),
               const SizedBox(
                 width: AppSizes.mediumPadding,
@@ -67,7 +81,8 @@ class _CustomButtonState extends State<CustomButton> {
                 widget.text ?? "",
                 style: AppTexts.bodyTextLarge.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: isFocused ? AppColors.backgroundColor : AppColors.black,
+                  color:
+                      isFocused ? AppColors.backgroundColor : AppColors.black,
                 ),
               ),
             ],
