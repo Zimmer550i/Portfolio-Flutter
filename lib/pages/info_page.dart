@@ -10,25 +10,27 @@ class InfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      if(constraints.maxWidth < constraints.maxHeight){
+      if (constraints.maxWidth < constraints.maxHeight) {
         return SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            leftInfoWindow(),
-            const SizedBox(
-              height: AppSizes.largePadding,
-            ),
-            rightInfoWindow(),
-          ],
-        ),
-      );
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              leftInfoWindow(),
+              const SizedBox(
+                height: AppSizes.largePadding,
+              ),
+              rightInfoWindow(),
+            ],
+          ),
+        );
       }
       return SingleChildScrollView(
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
+              flex: 2,
               child: leftInfoWindow(),
             ),
             const SizedBox(
@@ -214,7 +216,6 @@ class InfoPage extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.location_pin,
-
                   ),
                   SizedBox(
                     width: AppSizes.mediumPadding,

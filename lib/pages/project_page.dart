@@ -112,9 +112,51 @@ class _ProjectPageState extends State<ProjectPage> {
   Widget mobileLayout(Project project) {
     return Column(
       children: [
-        Text(
-          project.title,
-          style: AppTexts.heading,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            GestureDetector(
+              onTap: () {
+                if (index > 0) {
+                  setState(() {
+                    index--;
+                  });
+                  _controller.animateToPage(index,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.decelerate);
+                }
+              },
+              child: SvgPicture.asset(
+                "assets/icons/arrow_backward.svg",
+                width: AppSizes.iconSizeMedium,
+                color: index != 0 ? AppColors.black : Colors.grey,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                project.title,
+                style: AppTexts.heading,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                if (index < AppContents.projects.length - 1) {
+                  setState(() {
+                    index++;
+                  });
+                  _controller.animateToPage(index,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.decelerate);
+                }
+              },
+              child: SvgPicture.asset(
+                "assets/icons/arrow_forward.svg",
+                width: AppSizes.iconSizeMedium,
+                color: index < AppContents.projects.length - 1 ? AppColors.black : Colors.grey,
+              ),
+            ),
+          ],
         ),
         Expanded(child: MobileProjectWindow(project: project)),
         Container(
@@ -129,10 +171,11 @@ class _ProjectPageState extends State<ProjectPage> {
           height: AppSizes.mediumPadding,
         ),
         PageViewDotIndicator(
-            currentItem: index,
-            count: AppContents.projects.length,
-            unselectedColor: Colors.black.withOpacity(0.3),
-            selectedColor: AppColors.black),
+          currentItem: index,
+          count: AppContents.projects.length,
+          unselectedColor: Colors.black.withOpacity(0.3),
+          selectedColor: AppColors.black,
+        ),
       ],
     );
   }
