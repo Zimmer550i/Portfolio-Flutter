@@ -155,7 +155,7 @@ class InfoPage extends StatelessWidget {
                     child: Row(
                       children: [
                         SvgPicture.asset(
-                          "icons/arrow_forward.svg",
+                          "assets/icons/arrow_forward.svg",
                           height: AppSizes.iconSizeSmall,
                         ),
                         const SizedBox(

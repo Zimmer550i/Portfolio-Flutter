@@ -60,7 +60,7 @@ class _ProjectPageState extends State<ProjectPage> {
           child: Visibility(
             visible: index != 0,
             child: SvgPicture.asset(
-              "icons/arrow_backward.svg",
+              "assets/icons/arrow_backward.svg",
               width: AppSizes.iconSizeMedium,
             ),
           ),
@@ -100,7 +100,7 @@ class _ProjectPageState extends State<ProjectPage> {
           child: Visibility(
             visible: index < AppContents.projects.length - 1,
             child: SvgPicture.asset(
-              "icons/arrow_forward.svg",
+              "assets/icons/arrow_forward.svg",
               width: AppSizes.iconSizeMedium,
             ),
           ),

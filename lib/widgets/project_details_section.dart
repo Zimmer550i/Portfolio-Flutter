@@ -23,6 +23,9 @@ class ProjectDetailsSection extends StatelessWidget {
             height: AppSizes.mediumPadding,
           ),
           Text(
+            "Year: ${project.year}",
+          ),
+          Text(
             project.description,
             maxLines: 50,
             style: AppTexts.bodyText,
@@ -68,7 +71,7 @@ class ProjectDetailsSection extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SvgPicture.asset(
-                    "icons/arrow_forward.svg",
+                    "assets/icons/arrow_forward.svg",
                     height: AppSizes.iconSizeSmall,
                   ),
                   const SizedBox(

@@ -41,12 +41,15 @@ class _MainWindowState extends State<MainWindow> {
             const SizedBox(
               height: AppSizes.smallPadding,
             ),
-            Row(
-              children: [
-                ...AppContents.tabs.map((e) {
-                  return tab(e);
-                }),
-              ],
+            SingleChildScrollView(
+              
+              child: Row(
+                children: [
+                  ...AppContents.tabs.map((e) {
+                    return tab(e);
+                  }),
+                ],
+              ),
             ),
             Transform.translate(
               offset: const Offset(0, -AppSizes.smallPadding),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_flutter/pages/experience_page.dart';
 import 'package:portfolio_flutter/pages/info_page.dart';
 import 'package:portfolio_flutter/pages/profile_page.dart';
 import 'package:portfolio_flutter/pages/project_page.dart';
@@ -9,11 +10,13 @@ class AppContents {
     "Profile",
     "Info",
     "Projects",
+    "Experience",
   ];
   static List<Widget> pages = [
     const ProfilePage(),
     const InfoPage(),
     const ProjectPage(),
+    const ExperiencePage(),
   ];
   static const String profileDescription =
       "a self-taught Flutter developer with a generalist approach and a background in competitive programming, focused on creating optimized and impactful digital experiences.";
@@ -50,6 +53,83 @@ class AppContents {
   static List<Project> projects = [
     Project(
       mainTech: Technology.flutter,
+      year: 2024,
+      type: DisplayType.split,
+      title: "Daily Expenditure",
+      description:
+          "The Daily Expenditure app is a user-friendly tool designed to simplify tracking personal spending. With an easy tap-based input system, users can log their expenses quickly without needing a keyboard, making it ideal for on-the-go usage. Integrated with Firebase for secure authentication and real-time data management, the app ensures a smooth and reliable experience. It also features visual spending insights through charts and graphs powered by fl_chart, helping users understand and manage their finances effectively. A web version of the app is planned for future development to expand accessibility across platforms.",
+      assets: [
+        "assets/images/daily_exp_left.png",
+        "assets/images/daily_exp_right.png",
+      ],
+      tech: ["Flutter", "Firebase", "Authentication", "Graph", "Provider"],
+      highlight: [
+        "Keyboardless data entry",
+        "Charts and Graphs for better insight",
+        "Realtime data backup and sync across multiple devices",
+      ],
+      links: [],
+    ),
+    Project(
+      year: 2023,
+      mainTech: Technology.flutter,
+      type: DisplayType.right,
+      title: "Uniwide Inventory Management",
+      description: "Uniwide is an E-commerce app mainly used to manage inventory made for a client designed as per his request. User can add product and sell them at different prices and monitor profit for total sales. Variants like size or colors can also be selected while adding and selling products.",
+      assets: ["assets/images/uniwide.png"],
+      tech: [
+        "Flutter",
+        "Firebase",
+        "Authentication",
+      ],
+      highlight: [
+        "9 Page Application",
+        "Firebase Authentication",
+        "Firestore Database",
+        "Add, Remove, Edit and Sell Products",
+        "Different Variants are available for products",
+      ],
+      links: [ProjectLink(
+          icon: Icons.android_rounded,
+          name: "APK",
+          url:
+              "https://github.com/Zimmer550i/saad_project/releases/download/v0.5-alpha/app-release.apk",
+        ),
+        ProjectLink(
+          svgPath: "assets/icons/github.svg",
+          name: "Github",
+          url: "https://github.com/Zimmer550i/saad_project",
+        ),
+      ],
+    ),
+    Project(
+      title: "Neomorphic Calculator",
+      mainTech: Technology.web,
+      year: 2023,
+      description:
+          "This is a simple calculator with neomorphic design built on web using Html, Css and Js. A toggle button allows it to switch between Dark and Light mode. Sound playback has been used for haptic feedback. The Site is live, do check it out.",
+      type: DisplayType.left,
+      tech: ["HTML", "CSS", "JavaScript"],
+      highlight: [
+        "Neomorphic Design",
+        "Dark and Light Mode",
+      ],
+      assets: ["assets/images/neo_calc.png"],
+      links: [
+        ProjectLink(
+          icon: Icons.link_rounded,
+          name: "Site",
+          url: "https://zimmer550i.github.io/NeomorphicCalculatorWeb/",
+        ),
+        ProjectLink(
+          svgPath: "assets/icons/github.svg",
+          name: "Github",
+          url: "https://github.com/Zimmer550i/NeomorphicCalculatorWeb",
+        ),
+      ],
+    ),
+    Project(
+      mainTech: Technology.flutter,
       year: 2023,
       type: DisplayType.split,
       title: "Instagram Clone",
@@ -73,7 +153,7 @@ class AppContents {
               "https://github.com/Zimmer550i/instagram_clone/releases/download/v0.1/app-release.apk",
         ),
         ProjectLink(
-          svgPath: "icons/github.svg",
+          svgPath: "assets/icons/github.svg",
           name: "Github",
           url: "https://github.com/Zimmer550i/instagram_clone",
         ),
@@ -103,54 +183,9 @@ class AppContents {
               "https://github.com/Zimmer550i/Crafting-Psyche/releases/download/v0.1-alpha/app-release.apk",
         ),
         ProjectLink(
-          svgPath: "icons/github.svg",
+          svgPath: "assets/icons/github.svg",
           name: "Github",
           url: "https://github.com/Zimmer550i/Crafting-Psyche",
-        ),
-      ],
-    ),
-    Project(
-      mainTech: Technology.flutter,
-      year: 2024,
-      type: DisplayType.split,
-      title: "Daily Expenditure",
-      description:
-          "The Daily Expenditure app is a user-friendly tool designed to simplify tracking personal spending. With an easy tap-based input system, users can log their expenses quickly without needing a keyboard, making it ideal for on-the-go usage. Integrated with Firebase for secure authentication and real-time data management, the app ensures a smooth and reliable experience. It also features visual spending insights through charts and graphs powered by fl_chart, helping users understand and manage their finances effectively. A web version of the app is planned for future development to expand accessibility across platforms.",
-      assets: [
-        "assets/images/daily_exp_left.png",
-        "assets/images/daily_exp_right.png",
-      ],
-      tech: ["Flutter", "Firebase", "Authentication", "Graph"],
-      highlight: [
-        "Keyboardless data entry",
-        "Charts and Graphs for better insight",
-        "Realtime data backup and sync across multiple devices",
-      ],
-      links: [],
-    ),
-    Project(
-      title: "Neomorphic Calculator",
-      mainTech: Technology.web,
-      year: 2023,
-      description:
-          "This is a simple calculator with neomorphic design built on web using Html, Css and Js. A toggle button allows it to switch between Dark and Light mode. Sound playback has been used for haptic feedback. The Site is live, do check it out.",
-      type: DisplayType.left,
-      tech: ["HTML", "CSS", "JavaScript"],
-      highlight: [
-        "Neomorphic Design",
-        "Dark and Light Mode",
-      ],
-      assets: ["assets/images/neo_calc.png"],
-      links: [
-        ProjectLink(
-          icon: Icons.link_rounded,
-          name: "Site",
-          url: "https://zimmer550i.github.io/NeomorphicCalculatorWeb/",
-        ),
-        ProjectLink(
-          svgPath: "icons/github.svg",
-          name: "Github",
-          url: "https://github.com/Zimmer550i/NeomorphicCalculatorWeb",
         ),
       ],
     ),
