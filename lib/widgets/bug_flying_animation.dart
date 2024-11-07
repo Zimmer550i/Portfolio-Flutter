@@ -10,16 +10,17 @@ class BugFlyingAnimation extends StatefulWidget {
   @override
   BugFlyingAnimationState createState() => BugFlyingAnimationState();
 }
+
 class BugFlyingAnimationState extends State<BugFlyingAnimation>
     with SingleTickerProviderStateMixin {
   double _x = 0;
   double _y = 0;
-  double _angle = 0; // in radians
+  double _angle = 0;
   double _targetX = 200;
   double _targetY = 200;
   final double _maxSpeed = 10;
-  double _speed = 2; // speed of movement in pixels per frame
-  double _rotationSpeed = 0.2; // rotation speed in radians per frame
+  double _speed = 2;
+  double _rotationSpeed = 0.2;
   bool isMoving = true;
   bool showFirst = true;
   late Ticker _ticker;
@@ -81,8 +82,8 @@ class BugFlyingAnimationState extends State<BugFlyingAnimation>
 
   void _setNewTarget() {
     final random = Random();
-    _targetX = random.nextDouble() * widget.size.width;
-    _targetY = random.nextDouble() * widget.size.height;
+    _targetX = random.nextDouble() * (widget.size.width - 58);
+    _targetY = random.nextDouble() * (widget.size.height - 86);
 
     double deltaX = _targetX - _x;
     double deltaY = _targetY - _y;
@@ -111,7 +112,10 @@ class BugFlyingAnimationState extends State<BugFlyingAnimation>
               _setNewTarget();
             });
           },
-          child: Image.asset(showFirst ? "assets/images/fly_1.png" : "assets/images/fly_2.png"),
+          child: Image.asset(
+            showFirst ? "assets/images/fly_1.png" : "assets/images/fly_2.png",
+
+          ),
         ),
       ),
     );
