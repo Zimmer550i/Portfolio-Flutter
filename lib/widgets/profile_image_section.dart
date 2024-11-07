@@ -58,7 +58,7 @@ class ProfileImageSection extends StatelessWidget {
 
   double getSize(BoxConstraints constraint) {
     if (isMobile) {
-      return constraint.maxHeight / 1.3;
+      return constraint.maxWidth / 2;
     }
     return constraint.maxWidth < constraint.maxHeight / 1.5
         ? constraint.maxWidth / 1.5

@@ -10,16 +10,14 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxHeight >= constraints.maxWidth) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: ProfileImageSection(isMobile: (constraints.maxHeight >= constraints.maxWidth),),
-          ),
-          const Expanded(
-            child: ProfileDetailsSection(),
-          ),
-        ],
+      return SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ProfileImageSection(isMobile: (constraints.maxHeight >= constraints.maxWidth),),
+            const ProfileDetailsSection(),
+          ],
+        ),
       );
     }
     return const Row(
