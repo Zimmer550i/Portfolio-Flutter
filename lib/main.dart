@@ -16,8 +16,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Zimmer550i',
-      scrollBehavior: const MaterialScrollBehavior()
-          .copyWith(dragDevices: {PointerDeviceKind.mouse}),
+      scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
+        PointerDeviceKind.mouse,
+        PointerDeviceKind.touch,
+        PointerDeviceKind.stylus,
+        PointerDeviceKind.invertedStylus,
+        PointerDeviceKind.trackpad,
+        PointerDeviceKind.unknown,
+      }),
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
