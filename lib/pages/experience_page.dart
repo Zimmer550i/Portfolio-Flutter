@@ -34,6 +34,7 @@ class ExperiencePage extends StatelessWidget {
                     height: AppSizes.largePadding,
                   ),
                   CustomButton(
+                    link: "mailto:sakif049@gmail.com",
                     icon: Icons.work_rounded,
                     text: "Hire Me",
                   ),
@@ -46,7 +47,9 @@ class ExperiencePage extends StatelessWidget {
             left: isMobile ? -AppSizes.largePadding : 0,
             child: Image.asset(
               "assets/images/web_1.png",
-              width: isMobile ? constraints.maxWidth/2 : constraints.maxWidth / 5,
+              width: isMobile
+                  ? constraints.maxWidth / 2
+                  : constraints.maxWidth / 5,
             ),
           ),
           Positioned(
@@ -56,7 +59,9 @@ class ExperiencePage extends StatelessWidget {
               flipX: true,
               child: Image.asset(
                 "assets/images/web_2.png",
-                width: isMobile ? constraints.maxWidth/2 : constraints.maxWidth / 3,
+                width: isMobile
+                    ? constraints.maxWidth / 2
+                    : constraints.maxWidth / 3,
               ),
             ),
           ),

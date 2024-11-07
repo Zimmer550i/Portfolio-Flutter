@@ -33,12 +33,11 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   Widget build(BuildContext context) {
-    Project project = AppContents.projects[index];
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxHeight > constraints.maxWidth * 0.8) {
-        return mobileLayout(project);
+        return mobileLayout(AppContents.projects[index]);
       } else {
-        return webLayout(project);
+        return webLayout(AppContents.projects[index]);
       }
     });
   }
@@ -51,10 +50,10 @@ class _ProjectPageState extends State<ProjectPage> {
             if (index > 0) {
               setState(() {
                 index--;
+                _controller.animateToPage(index,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.decelerate);
               });
-              _controller.animateToPage(index,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.decelerate);
             }
           },
           child: Visibility(
@@ -91,10 +90,10 @@ class _ProjectPageState extends State<ProjectPage> {
             if (index < AppContents.projects.length - 1) {
               setState(() {
                 index++;
+                _controller.animateToPage(index,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.decelerate);
               });
-              _controller.animateToPage(index,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.decelerate);
             }
           },
           child: Visibility(
@@ -114,7 +113,7 @@ class _ProjectPageState extends State<ProjectPage> {
       children: [
         Text(
           project.title,
-          style: AppTexts.heading.copyWith(fontWeight: FontWeight.bold),
+          style: AppTexts.tabText.copyWith(fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
         Expanded(child: MobileProjectWindow(project: project)),
@@ -147,7 +146,9 @@ class _ProjectPageState extends State<ProjectPage> {
                 "assets/icons/arrow_backward.svg",
                 width: AppSizes.iconSizeSmall,
                 // ignore: deprecated_member_use
-                color: index != 0 ? const Color.fromARGB(255, 8, 1, 1) : Colors.grey,
+                color: index != 0
+                    ? const Color.fromARGB(255, 8, 1, 1)
+                    : Colors.grey,
               ),
             ),
             Expanded(

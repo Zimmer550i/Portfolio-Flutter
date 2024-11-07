@@ -65,13 +65,18 @@ class _MainWindowState extends State<MainWindow> {
       return Container();
     }
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            ...AppContents.tabs.map((e) {
-              return tab(e);
-            }),
-          ],
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ...AppContents.tabs.map((e) {
+                return tab(e);
+              }),
+            ],
+          ),
         ),
         Transform.translate(
           offset: const Offset(0, -AppSizes.smallPadding),

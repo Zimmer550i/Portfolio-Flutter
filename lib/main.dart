@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Zimmer550i',
       scrollBehavior: const MaterialScrollBehavior()
           .copyWith(dragDevices: {PointerDeviceKind.mouse}),
       theme: ThemeData(

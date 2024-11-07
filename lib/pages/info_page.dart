@@ -29,21 +29,26 @@ class InfoPage extends StatelessWidget {
         );
       }
       return SingleChildScrollView(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 2,
-              child: leftInfoWindow(),
-            ),
-            const SizedBox(
-              width: AppSizes.largePadding,
-            ),
-            Expanded(
-              child: rightInfoWindow(),
-            ),
-          ],
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: constraints.maxHeight * 1.5
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: leftInfoWindow(),
+              ),
+              const SizedBox(
+                width: AppSizes.largePadding,
+              ),
+              Expanded(
+                child: rightInfoWindow(),
+              ),
+            ],
+          ),
         ),
       );
     });
