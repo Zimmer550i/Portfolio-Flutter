@@ -5,8 +5,10 @@ import 'package:portfolio_flutter/utils/app_sizes.dart';
 import 'package:portfolio_flutter/utils/app_texts.dart';
 
 class MainWindow extends StatefulWidget {
+  final bool isMobile;
   const MainWindow({
     super.key,
+    this.isMobile = false,
   });
 
   @override
@@ -19,8 +21,14 @@ class _MainWindowState extends State<MainWindow> {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    double width = screenSize.width * AppSizes.webPadding;
-    double height = screenSize.height * AppSizes.webPadding;
+    late double width, height;
+    if (widget.isMobile) {
+      width = screenSize.width;
+      height = screenSize.height;
+    } else {
+      width = screenSize.width * AppSizes.webPadding;
+      height = screenSize.height * AppSizes.webPadding;
+    }
 
     return Container(
       width: width,
@@ -41,37 +49,73 @@ class _MainWindowState extends State<MainWindow> {
             const SizedBox(
               height: AppSizes.smallPadding,
             ),
-            SingleChildScrollView(
-              
-              child: Row(
-                children: [
-                  ...AppContents.tabs.map((e) {
-                    return tab(e);
-                  }),
-                ],
-              ),
-            ),
-            Transform.translate(
-              offset: const Offset(0, -AppSizes.smallPadding),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: AppColors.black,
-                  borderRadius:
-                      BorderRadius.circular(AppSizes.smallPadding / 2),
-                ),
-                height: AppSizes.smallPadding,
-                width: double.infinity,
-              ),
-            ),
-            const SizedBox(
-              height: AppSizes.largePadding,
-            ),
+            tabBarTop(),
             Expanded(
               child: AppContents.pages[index],
             ),
+            tabBarBottom(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget tabBarTop() {
+    if (widget.isMobile) {
+      return Container();
+    }
+    return Column(
+      children: [
+        Row(
+          children: [
+            ...AppContents.tabs.map((e) {
+              return tab(e);
+            }),
+          ],
+        ),
+        Transform.translate(
+          offset: const Offset(0, -AppSizes.smallPadding),
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColors.black,
+              borderRadius: BorderRadius.circular(AppSizes.smallPadding / 2),
+            ),
+            height: AppSizes.smallPadding,
+            width: double.infinity,
+          ),
+        ),
+        const SizedBox(
+          height: AppSizes.largePadding,
+        ),
+      ],
+    );
+  }
+
+  Widget tabBarBottom() {
+    if (!widget.isMobile) {
+      return Container();
+    }
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              ...AppContents.tabs.map((e) {
+                return tab(e);
+              }),
+            ],
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: AppColors.black,
+            borderRadius: BorderRadius.circular(AppSizes.smallPadding / 2),
+          ),
+          height: AppSizes.smallPadding,
+          width: double.infinity,
+        ),
+      ],
     );
   }
 
@@ -88,10 +132,11 @@ class _MainWindowState extends State<MainWindow> {
           color: isSelected ? AppColors.black : AppColors.backgroundColor,
           borderRadius: BorderRadius.circular(AppSizes.smallPadding / 2),
         ),
-        padding: const EdgeInsets.only(
+        padding: EdgeInsets.only(
           left: AppSizes.mediumPadding,
           right: AppSizes.mediumPadding,
           bottom: AppSizes.smallPadding,
+          top: widget.isMobile ? AppSizes.smallPadding : 0,
         ),
         child: Text(
           e,

@@ -70,6 +70,7 @@ class _CustomButtonState extends State<CustomButton> {
                   : SvgPicture.asset(
                       widget.svgPath!,
                       height: AppSizes.iconSizeSmall,
+                      // ignore: deprecated_member_use
                       color: isFocused
                           ? AppColors.backgroundColor
                           : AppColors.black,

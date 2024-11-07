@@ -20,6 +20,10 @@ class InfoPage extends StatelessWidget {
                 height: AppSizes.largePadding,
               ),
               rightInfoWindow(),
+              const SizedBox(
+                height: AppSizes.largePadding,
+              ),
+              
             ],
           ),
         );

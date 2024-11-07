@@ -36,7 +36,7 @@ class _AppState extends State<App> {
         MediaQuery.of(context).size.height) {
       return const Scaffold(
         body: Center(
-          child: MainWindow(),
+          child: MainWindow(isMobile: true,),
         ),
       );
     }

@@ -112,6 +112,23 @@ class _ProjectPageState extends State<ProjectPage> {
   Widget mobileLayout(Project project) {
     return Column(
       children: [
+        Text(
+          project.title,
+          style: AppTexts.heading.copyWith(fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+        Expanded(child: MobileProjectWindow(project: project)),
+        // Container(
+        //   decoration: BoxDecoration(
+        //     color: AppColors.black,
+        //     borderRadius: BorderRadius.circular(AppSizes.smallPadding / 2),
+        //   ),
+        //   height: AppSizes.smallPadding,
+        //   width: double.infinity,
+        // ),
+        // const SizedBox(
+        //   height: AppSizes.mediumPadding,
+        // ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -121,22 +138,24 @@ class _ProjectPageState extends State<ProjectPage> {
                   setState(() {
                     index--;
                   });
-                  _controller.animateToPage(index,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.decelerate);
+                  // _controller.animateToPage(index,
+                  //     duration: const Duration(milliseconds: 300),
+                  //     curve: Curves.decelerate);
                 }
               },
               child: SvgPicture.asset(
                 "assets/icons/arrow_backward.svg",
-                width: AppSizes.iconSizeMedium,
-                color: index != 0 ? AppColors.black : Colors.grey,
+                width: AppSizes.iconSizeSmall,
+                // ignore: deprecated_member_use
+                color: index != 0 ? const Color.fromARGB(255, 8, 1, 1) : Colors.grey,
               ),
             ),
             Expanded(
-              child: Text(
-                project.title,
-                style: AppTexts.heading,
-                textAlign: TextAlign.center,
+              child: PageViewDotIndicator(
+                currentItem: index,
+                count: AppContents.projects.length,
+                unselectedColor: Colors.black.withOpacity(0.3),
+                selectedColor: AppColors.black,
               ),
             ),
             GestureDetector(
@@ -145,36 +164,24 @@ class _ProjectPageState extends State<ProjectPage> {
                   setState(() {
                     index++;
                   });
-                  _controller.animateToPage(index,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.decelerate);
+                  // _controller.animateToPage(index,
+                  //     duration: const Duration(milliseconds: 300),
+                  //     curve: Curves.decelerate);
                 }
               },
               child: SvgPicture.asset(
                 "assets/icons/arrow_forward.svg",
-                width: AppSizes.iconSizeMedium,
-                color: index < AppContents.projects.length - 1 ? AppColors.black : Colors.grey,
+                width: AppSizes.iconSizeSmall,
+                // ignore: deprecated_member_use
+                color: index < AppContents.projects.length - 1
+                    ? AppColors.black
+                    : Colors.grey,
               ),
             ),
           ],
         ),
-        Expanded(child: MobileProjectWindow(project: project)),
-        Container(
-          decoration: BoxDecoration(
-            color: AppColors.black,
-            borderRadius: BorderRadius.circular(AppSizes.smallPadding / 2),
-          ),
-          height: AppSizes.smallPadding,
-          width: double.infinity,
-        ),
         const SizedBox(
           height: AppSizes.mediumPadding,
-        ),
-        PageViewDotIndicator(
-          currentItem: index,
-          count: AppContents.projects.length,
-          unselectedColor: Colors.black.withOpacity(0.3),
-          selectedColor: AppColors.black,
         ),
       ],
     );

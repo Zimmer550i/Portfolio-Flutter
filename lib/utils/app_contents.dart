@@ -19,7 +19,7 @@ class AppContents {
     const ExperiencePage(),
   ];
   static const String profileDescription =
-      "a self-taught Flutter developer with a generalist approach and a background in competitive programming, focused on creating optimized and impactful digital experiences.";
+      "a self-taught Flutter developer with a generalist approach and a background in competitive programming, pursuing collaborative environment to apply my skills and deepen my learning.";
   static const String detailedDescription =
       """I'm a Flutter developer with a generalist approach, skilled in building versatile and user-focused applications. My background includes a strong foundation in competitive programming, giving me a keen eye for problem-solving and optimized solutions. Self-taught and dedicated, I’m passionate about merging creativity with technical expertise to create impactful digital experiences. Whether it's tackling complex app architectures or refining UI details, I bring a diverse skill set and a drive for continuous learning to every project.""";
   static const List<String> skills = [

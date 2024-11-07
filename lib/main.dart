@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:portfolio_flutter/app.dart';
 import 'package:portfolio_flutter/utils/app_colors.dart';
@@ -14,11 +16,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      scrollBehavior: const MaterialScrollBehavior()
+          .copyWith(dragDevices: {PointerDeviceKind.mouse}),
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-        scaffoldBackgroundColor: AppColors.backgroundColor
-      ),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+          scaffoldBackgroundColor: AppColors.backgroundColor),
       home: const App(),
     );
   }
