@@ -56,12 +56,12 @@ class _ProjectPageState extends State<ProjectPage> {
               });
             }
           },
-          child: Visibility(
-            visible: index != 0,
-            child: SvgPicture.asset(
-              "assets/icons/arrow_backward.svg",
-              width: AppSizes.iconSizeMedium,
-            ),
+          child: SvgPicture.asset(
+            "assets/icons/arrow_backward.svg",
+            width: AppSizes.iconSizeMedium,
+              color: index != 0
+                  ? const Color.fromARGB(255, 8, 1, 1)
+                  : Colors.grey,
           ),
         ),
         Expanded(
@@ -96,12 +96,12 @@ class _ProjectPageState extends State<ProjectPage> {
               });
             }
           },
-          child: Visibility(
-            visible: index < AppContents.projects.length - 1,
-            child: SvgPicture.asset(
-              "assets/icons/arrow_forward.svg",
-              width: AppSizes.iconSizeMedium,
-            ),
+          child: SvgPicture.asset(
+            "assets/icons/arrow_forward.svg",
+            width: AppSizes.iconSizeMedium,
+              color: index < AppContents.projects.length - 1
+                  ? AppColors.black
+                  : Colors.grey,
           ),
         ),
       ],
