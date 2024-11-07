@@ -22,9 +22,11 @@ class ExperiencePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "No Experiences",
-                    style: TextStyle(fontFamily: "Custom", fontSize: 90),
+                  FittedBox(
+                    child: Text(
+                      "No Experiences",
+                      style: TextStyle(fontFamily: "Custom", fontSize: 90),
+                    ),
                   ),
                   Text(
                     "maybe you can help me get some",
@@ -53,8 +55,8 @@ class ExperiencePage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: -AppSizes.largePadding - AppSizes.smallPadding,
-            right: isMobile ? -AppSizes.mediumPadding : 0,
+            top: isMobile ? -AppSizes.largePadding : -AppSizes.largePadding * 2,
+            right: isMobile ? -AppSizes.mediumPadding :  -AppSizes.largePadding ,
             child: Transform.flip(
               flipX: true,
               child: Image.asset(
@@ -65,9 +67,11 @@ class ExperiencePage extends StatelessWidget {
               ),
             ),
           ),
-          BugFlyingAnimation(
-            size: Size(constraints.maxWidth, constraints.maxHeight),
-          ),
+          isMobile
+              ? Container()
+              : BugFlyingAnimation(
+                  size: Size(constraints.maxWidth, constraints.maxHeight),
+                ),
         ],
       );
     });

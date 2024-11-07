@@ -39,11 +39,11 @@ class _MainWindowState extends State<MainWindow> {
       ),
       decoration: BoxDecoration(
         color: AppColors.backgroundColor,
-        border: Border.all(width: AppSizes.smallPadding),
+        border: widget.isMobile ? null : Border.all(width: AppSizes.smallPadding),
         borderRadius: BorderRadius.circular(AppSizes.mediumPadding),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(AppSizes.mediumPadding),
+        padding: EdgeInsets.all(widget.isMobile ? AppSizes.smallPadding : AppSizes.mediumPadding),
         child: Column(
           children: [
             const SizedBox(
@@ -104,6 +104,7 @@ class _MainWindowState extends State<MainWindow> {
       children: [
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
+          clipBehavior: Clip.none,
           child: Row(
             children: [
               ...AppContents.tabs.map((e) {

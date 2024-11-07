@@ -13,6 +13,7 @@ class ProfilePage extends StatelessWidget {
       return SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ProfileImageSection(isMobile: (constraints.maxHeight >= constraints.maxWidth),),
             const ProfileDetailsSection(),
