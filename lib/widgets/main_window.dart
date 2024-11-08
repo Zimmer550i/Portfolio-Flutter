@@ -45,9 +45,9 @@ class _MainWindowState extends State<MainWindow> {
         padding: EdgeInsets.all(widget.isMobile ? AppSizes.smallPadding : AppSizes.mediumPadding),
         child: Column(
           children: [
-            // const SizedBox(
-            //   height: AppSizes.smallPadding,
-            // ),
+            const SizedBox(
+              height: AppSizes.smallPadding,
+            ),
             tabBarTop(),
             Expanded(
               child: AppContents.pages[index],
