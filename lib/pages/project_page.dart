@@ -59,6 +59,7 @@ class _ProjectPageState extends State<ProjectPage> {
           child: SvgPicture.asset(
             "assets/icons/arrow_backward.svg",
             width: AppSizes.iconSizeMedium,
+              // ignore: deprecated_member_use
               color: index != 0
                   ? const Color.fromARGB(255, 8, 1, 1)
                   : Colors.grey,
@@ -99,6 +100,7 @@ class _ProjectPageState extends State<ProjectPage> {
           child: SvgPicture.asset(
             "assets/icons/arrow_forward.svg",
             width: AppSizes.iconSizeMedium,
+              // ignore: deprecated_member_use
               color: index < AppContents.projects.length - 1
                   ? AppColors.black
                   : Colors.grey,

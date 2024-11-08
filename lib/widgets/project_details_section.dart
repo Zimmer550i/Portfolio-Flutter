@@ -20,99 +20,112 @@ class ProjectDetailsSection extends StatelessWidget {
       return SingleChildScrollView(
         child: Column(
           children: [
+            projectInfo(),
             const SizedBox(
               height: AppSizes.mediumPadding,
             ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Year: ${project.year}",
-              ),
-            ),
-            Text(
-              project.description,
-              maxLines: 50,
-              style: AppTexts.bodyText,
-            ),
-            const SizedBox(
-              height: AppSizes.smallPadding,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Wrap(
-                alignment: WrapAlignment.start,
-                spacing: AppSizes.smallPadding,
-                runSpacing: AppSizes.smallPadding,
-                children: [
-                  ...project.tech.map((item) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: AppSizes.smallPadding),
-                      decoration: BoxDecoration(
-                        color: AppColors.black,
-                        borderRadius: BorderRadius.circular(
-                          AppSizes.largePadding,
-                        ),
-                      ),
-                      child: Text(
-                        item,
-                        style: AppTexts.bodyText.copyWith(
-                          color: AppColors.backgroundColor,
-                        ),
-                      ),
-                    );
-                  }),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: AppSizes.mediumPadding,
-            ),
-            for (int i = 0; i < project.highlight.length; i++)
-              Padding(
-                padding: const EdgeInsets.only(bottom: AppSizes.smallPadding),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SvgPicture.asset(
-                      "assets/icons/arrow_forward.svg",
-                      height: AppSizes.iconSizeSmall,
-                    ),
-                    const SizedBox(
-                      width: AppSizes.mediumPadding,
-                    ),
-                    Expanded(
-                      child: Text(
-                        project.highlight[i],
-                        style: AppTexts.bodyTextLarge,
-                        maxLines: 5,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            const SizedBox(
-              height: AppSizes.mediumPadding,
-            ),
-            Wrap(
-              spacing: AppSizes.mediumPadding,
-              runSpacing: AppSizes.smallPadding,
-              children: [
-                for (int i = 0; i < project.links.length; i++)
-                  CustomButton(
-                    icon: project.links[i].icon,
-                    svgPath: project.links[i].svgPath,
-                    text: project.links[i].name,
-                    link: project.links[i].url,
-                  ),
-              ],
-            ),
-            const SizedBox(
-              height: AppSizes.mediumPadding,
-            ),
+            projectLinks(),
           ],
         ),
       );
     });
+  }
+
+  Widget projectLinks() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSizes.mediumPadding),
+      child: Wrap(
+        spacing: AppSizes.mediumPadding,
+        runSpacing: AppSizes.smallPadding,
+        alignment: WrapAlignment.center,
+        children: [
+          for (int i = 0; i < project.links.length; i++)
+            CustomButton(
+              icon: project.links[i].icon,
+              svgPath: project.links[i].svgPath,
+              text: project.links[i].name,
+              link: project.links[i].url,
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget projectInfo() {
+    return Column(
+      children: [
+        const SizedBox(
+          height: AppSizes.mediumPadding,
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Year: ${project.year}",
+          ),
+        ),
+        Text(
+          project.description,
+          maxLines: 50,
+          style: AppTexts.bodyText,
+        ),
+        const SizedBox(
+          height: AppSizes.smallPadding,
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Wrap(
+            alignment: WrapAlignment.start,
+            spacing: AppSizes.smallPadding,
+            runSpacing: AppSizes.smallPadding,
+            children: [
+              ...project.tech.map((item) {
+                return Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppSizes.smallPadding),
+                  decoration: BoxDecoration(
+                    color: AppColors.black,
+                    borderRadius: BorderRadius.circular(
+                      AppSizes.largePadding,
+                    ),
+                  ),
+                  child: Text(
+                    item,
+                    style: AppTexts.bodyText.copyWith(
+                      color: AppColors.backgroundColor,
+                    ),
+                  ),
+                );
+              }),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: AppSizes.mediumPadding,
+        ),
+        for (int i = 0; i < project.highlight.length; i++)
+          Padding(
+            padding: const EdgeInsets.only(bottom: AppSizes.smallPadding),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  "assets/icons/arrow_forward.svg",
+                  height: AppSizes.iconSizeSmall,
+                ),
+                const SizedBox(
+                  width: AppSizes.mediumPadding,
+                ),
+                Expanded(
+                  child: Text(
+                    project.highlight[i],
+                    style: AppTexts.bodyTextLarge,
+                    maxLines: 5,
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
+    );
   }
 }

@@ -69,7 +69,6 @@ class InfoPage extends StatelessWidget {
 
   rightInfoWindow() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         skills(),

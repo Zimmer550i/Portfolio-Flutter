@@ -40,6 +40,7 @@ dependencies:
   firebase_core: ^3.6.0
   flutter_svg: ^2.0.10+1
   page_view_dot_indicator: ^2.3.0
+  widget_size: ^1.0.0
 
 dev_dependencies:
   flutter_test:

@@ -34,8 +34,7 @@ class _MainWindowState extends State<MainWindow> {
       width: width,
       height: height,
       constraints: BoxConstraints(
-        maxWidth: screenSize.width,
-        maxHeight: screenSize.height,
+        maxWidth: height * 1.7776,
       ),
       decoration: BoxDecoration(
         color: AppColors.backgroundColor,

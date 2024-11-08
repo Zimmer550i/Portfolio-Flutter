@@ -20,6 +20,8 @@ class ProfileImageSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
+                height: getSize(constraint),
+                width: getSize(constraint),
             decoration: BoxDecoration(
               border: Border.all(width: AppSizes.smallPadding),
               borderRadius: BorderRadius.circular(AppSizes.mediumPadding),
@@ -29,8 +31,6 @@ class ProfileImageSection extends StatelessWidget {
               child: Image.asset(
                 // "assets/icons/facebook.png",
                 "assets/images/sakif.jpg",
-                height: getSize(constraint),
-                width: getSize(constraint),
                 frameBuilder: (BuildContext context, Widget child, int? frame,
                     bool wasSynchronouslyLoaded) {
                   if (wasSynchronouslyLoaded) {
