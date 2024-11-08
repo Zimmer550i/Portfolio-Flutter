@@ -9,7 +9,7 @@ class ExperiencePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      bool isMobile = constraints.maxWidth < constraints.maxHeight;
+      bool isMobile = MediaQuery.of(context).size.width < MediaQuery.of(context).size.height;
       return Stack(
         clipBehavior: Clip.none,
         children: [
@@ -45,8 +45,8 @@ class ExperiencePage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: -AppSizes.largePadding - AppSizes.smallPadding,
-            left: isMobile ? -AppSizes.largePadding : 0,
+            top: isMobile ? -AppSizes.smallPadding : -AppSizes.largePadding,
+            left: isMobile ? -AppSizes.mediumPadding : 0,
             child: Image.asset(
               "assets/images/web_1.png",
               width: isMobile
@@ -55,8 +55,8 @@ class ExperiencePage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: isMobile ? -AppSizes.largePadding : -AppSizes.largePadding * 2,
-            right: isMobile ? -AppSizes.mediumPadding :  -AppSizes.largePadding ,
+            top:  isMobile ? -AppSizes.smallPadding : -AppSizes.largePadding,
+            right: isMobile ? -AppSizes.smallPadding : 0,
             child: Transform.flip(
               flipX: true,
               child: Image.asset(
