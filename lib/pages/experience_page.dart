@@ -1,3 +1,4 @@
+import 'package:firebase_analytics_web/firebase_analytics_web.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
 import 'package:portfolio_flutter/widgets/bug_flying_animation.dart';
@@ -6,10 +7,20 @@ import 'package:portfolio_flutter/widgets/custom_button.dart';
 class ExperiencePage extends StatelessWidget {
   const ExperiencePage({super.key});
 
+  static bool loggedOnce = false;
+  void logScreenEvent() async {
+    await FirebaseAnalyticsWeb().setCurrentScreen(screenName: "Project Screen");
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (!loggedOnce) {
+      logScreenEvent();
+      loggedOnce = true;
+    }
     return LayoutBuilder(builder: (context, constraints) {
-      bool isMobile = MediaQuery.of(context).size.width < MediaQuery.of(context).size.height;
+      bool isMobile = MediaQuery.of(context).size.width <
+          MediaQuery.of(context).size.height;
       return Stack(
         clipBehavior: Clip.none,
         children: [
@@ -55,7 +66,7 @@ class ExperiencePage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top:  isMobile ? -AppSizes.smallPadding : -AppSizes.largePadding,
+            top: isMobile ? -AppSizes.smallPadding : -AppSizes.largePadding,
             right: isMobile ? -AppSizes.smallPadding : 0,
             child: Transform.flip(
               flipX: true,

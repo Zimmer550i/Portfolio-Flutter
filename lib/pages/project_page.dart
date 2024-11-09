@@ -1,9 +1,11 @@
+import 'package:firebase_analytics_web/firebase_analytics_web.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 import 'package:portfolio_flutter/project_model.dart';
 import 'package:portfolio_flutter/utils/app_contents.dart';
 import 'package:portfolio_flutter/utils/app_texts.dart';
+import 'package:portfolio_flutter/utils/log_event.dart';
 import 'package:portfolio_flutter/widgets/left_project_window.dart';
 import 'package:portfolio_flutter/widgets/mobile_project_window.dart';
 import 'package:portfolio_flutter/widgets/page_view_index.dart';
@@ -29,6 +31,11 @@ class _ProjectPageState extends State<ProjectPage> {
   void initState() {
     super.initState();
     _controller = PageController();
+    logScreenEvent();
+  }
+
+  void logScreenEvent() async {
+    await FirebaseAnalyticsWeb().setCurrentScreen(screenName: "Project Screen");
   }
 
   @override
@@ -48,6 +55,7 @@ class _ProjectPageState extends State<ProjectPage> {
         GestureDetector(
           onTap: () {
             if (index > 0) {
+              logCustomEvent("Project Page Browsed");
               setState(() {
                 index--;
                 _controller.animateToPage(index,
@@ -59,10 +67,9 @@ class _ProjectPageState extends State<ProjectPage> {
           child: SvgPicture.asset(
             "assets/icons/arrow_backward.svg",
             width: AppSizes.iconSizeMedium,
-              // ignore: deprecated_member_use
-              color: index != 0
-                  ? const Color.fromARGB(255, 8, 1, 1)
-                  : Colors.grey,
+            // ignore: deprecated_member_use
+            color:
+                index != 0 ? const Color.fromARGB(255, 8, 1, 1) : Colors.grey,
           ),
         ),
         Expanded(
@@ -89,6 +96,7 @@ class _ProjectPageState extends State<ProjectPage> {
         GestureDetector(
           onTap: () {
             if (index < AppContents.projects.length - 1) {
+              logCustomEvent("Project Page Browsed");
               setState(() {
                 index++;
                 _controller.animateToPage(index,
@@ -100,10 +108,10 @@ class _ProjectPageState extends State<ProjectPage> {
           child: SvgPicture.asset(
             "assets/icons/arrow_forward.svg",
             width: AppSizes.iconSizeMedium,
-              // ignore: deprecated_member_use
-              color: index < AppContents.projects.length - 1
-                  ? AppColors.black
-                  : Colors.grey,
+            // ignore: deprecated_member_use
+            color: index < AppContents.projects.length - 1
+                ? AppColors.black
+                : Colors.grey,
           ),
         ),
       ],
@@ -136,6 +144,7 @@ class _ProjectPageState extends State<ProjectPage> {
             GestureDetector(
               onTap: () {
                 if (index > 0) {
+              logCustomEvent("Project Page Browsed");
                   setState(() {
                     index--;
                   });
@@ -164,6 +173,7 @@ class _ProjectPageState extends State<ProjectPage> {
             GestureDetector(
               onTap: () {
                 if (index < AppContents.projects.length - 1) {
+              logCustomEvent("Project Page Browsed");
                   setState(() {
                     index++;
                   });

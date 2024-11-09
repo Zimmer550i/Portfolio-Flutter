@@ -4,6 +4,8 @@ import 'package:portfolio_flutter/utils/app_colors.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../utils/log_event.dart';
+
 class SocialButton extends StatefulWidget {
   final String imgAsset;
   final String url;
@@ -37,6 +39,7 @@ class _SocialButtonState extends State<SocialButton> {
       child: GestureDetector(
         onTap: () {
           launchUrlString(widget.url);
+          logCustomEvent("Button Pressed: ${widget.url}");
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),

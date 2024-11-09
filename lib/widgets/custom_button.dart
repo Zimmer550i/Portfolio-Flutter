@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:portfolio_flutter/utils/app_colors.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
 import 'package:portfolio_flutter/utils/app_texts.dart';
+import 'package:portfolio_flutter/utils/log_event.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class CustomButton extends StatefulWidget {
@@ -42,6 +43,7 @@ class _CustomButtonState extends State<CustomButton> {
           if (widget.link != null) {
             launchUrlString(widget.link!);
           }
+          logCustomEvent("Button Pressed: ${widget.text}", extra: widget.link);
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),

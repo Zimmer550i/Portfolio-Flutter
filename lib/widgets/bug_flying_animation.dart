@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:portfolio_flutter/utils/log_event.dart';
 
 class BugFlyingAnimation extends StatefulWidget {
   final Size size;
@@ -107,6 +108,7 @@ class BugFlyingAnimationState extends State<BugFlyingAnimation>
         angle: _angle,
         child: MouseRegion(
           onHover: (event) {
+            logCustomEvent("Playing with the Bug");
             setState(() {
               isMoving = true;
               _setNewTarget();
@@ -114,7 +116,6 @@ class BugFlyingAnimationState extends State<BugFlyingAnimation>
           },
           child: Image.asset(
             showFirst ? "assets/images/fly_1.png" : "assets/images/fly_2.png",
-
           ),
         ),
       ),

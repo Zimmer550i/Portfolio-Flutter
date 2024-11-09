@@ -1,3 +1,4 @@
+import 'package:firebase_analytics_web/firebase_analytics_web.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:portfolio_flutter/utils/app_contents.dart';
@@ -7,8 +8,17 @@ import 'package:portfolio_flutter/utils/app_texts.dart';
 class InfoPage extends StatelessWidget {
   const InfoPage({super.key});
 
+  static bool loggedOnce = false;
+  void logScreenEvent() async {
+    await FirebaseAnalyticsWeb().setCurrentScreen(screenName: "Project Screen");
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (!loggedOnce) {
+      logScreenEvent();
+      loggedOnce = true;
+    }
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth < constraints.maxHeight) {
         return SingleChildScrollView(
@@ -23,16 +33,13 @@ class InfoPage extends StatelessWidget {
               const SizedBox(
                 height: AppSizes.largePadding,
               ),
-              
             ],
           ),
         );
       }
       return SingleChildScrollView(
         child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: constraints.maxHeight * 1.5
-          ),
+          constraints: BoxConstraints(maxWidth: constraints.maxHeight * 1.5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
