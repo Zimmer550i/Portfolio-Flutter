@@ -25,8 +25,8 @@ class _AppState extends State<App> {
     final screenHeight = screenSize.height;
 
     setState(() {
-      _rotationY = (mouseX / screenWidth - 0.5) * pi / 18;
-      _rotationX = -(mouseY / screenHeight - 0.5) * pi / 18;
+      _rotationY = (mouseX / screenWidth - 0.5) * pi / 12;
+      _rotationX = -(mouseY / screenHeight - 0.5) * pi / 12;
     });
   }
 
