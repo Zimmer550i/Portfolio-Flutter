@@ -1,4 +1,4 @@
-import 'package:firebase_analytics_web/firebase_analytics_web.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:portfolio_flutter/utils/app_contents.dart';
@@ -10,7 +10,8 @@ class InfoPage extends StatelessWidget {
 
   static bool loggedOnce = false;
   void logScreenEvent() async {
-    await FirebaseAnalyticsWeb().setCurrentScreen(screenName: "Project Screen");
+    await FirebaseAnalytics.instance
+        .logScreenView(screenName: "Project Screen");
   }
 
   @override

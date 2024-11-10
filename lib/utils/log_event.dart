@@ -1,8 +1,8 @@
-import 'package:firebase_analytics_web/firebase_analytics_web.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 Future<void> logCustomEvent(String name, {String? extra}) async {
   // Create the parameters map
-  Map<String, dynamic> parameters = {
+  Map<String, Object> parameters = {
     'datetime': DateTime.now().toIso8601String(),
   };
 
@@ -12,5 +12,5 @@ Future<void> logCustomEvent(String name, {String? extra}) async {
   }
 
   // Log the event with the parameters
-  await FirebaseAnalyticsWeb().logEvent(name: name, parameters: parameters);
+  await FirebaseAnalytics.instance.logEvent(name: name, parameters: parameters);
 }

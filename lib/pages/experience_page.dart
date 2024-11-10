@@ -1,4 +1,4 @@
-import 'package:firebase_analytics_web/firebase_analytics_web.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
 import 'package:portfolio_flutter/widgets/bug_flying_animation.dart';
@@ -9,7 +9,8 @@ class ExperiencePage extends StatelessWidget {
 
   static bool loggedOnce = false;
   void logScreenEvent() async {
-    await FirebaseAnalyticsWeb().setCurrentScreen(screenName: "Project Screen");
+    await FirebaseAnalytics.instance
+        .logScreenView(screenName: "Project Screen");
   }
 
   @override

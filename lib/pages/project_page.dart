@@ -1,4 +1,4 @@
-import 'package:firebase_analytics_web/firebase_analytics_web.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
@@ -35,7 +35,8 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   void logScreenEvent() async {
-    await FirebaseAnalyticsWeb().setCurrentScreen(screenName: "Project Screen");
+    await FirebaseAnalytics.instance
+        .logScreenView(screenName: "Project Screen");
   }
 
   @override
@@ -144,7 +145,7 @@ class _ProjectPageState extends State<ProjectPage> {
             GestureDetector(
               onTap: () {
                 if (index > 0) {
-              logCustomEvent("Project Page Browsed");
+                  logCustomEvent("Project Page Browsed");
                   setState(() {
                     index--;
                   });
@@ -173,7 +174,7 @@ class _ProjectPageState extends State<ProjectPage> {
             GestureDetector(
               onTap: () {
                 if (index < AppContents.projects.length - 1) {
-              logCustomEvent("Project Page Browsed");
+                  logCustomEvent("Project Page Browsed");
                   setState(() {
                     index++;
                   });
