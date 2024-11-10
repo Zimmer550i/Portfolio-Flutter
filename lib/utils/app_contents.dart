@@ -75,7 +75,8 @@ class AppContents {
       mainTech: Technology.flutter,
       type: DisplayType.right,
       title: "Uniwide Inventory Management",
-      description: "Uniwide is an E-commerce app mainly used to manage inventory made for a client designed as per his request. User can add product and sell them at different prices and monitor profit for total sales. Variants like size or colors can also be selected while adding and selling products.",
+      description:
+          "Uniwide is an E-commerce app mainly used to manage inventory made for a client designed as per his request. User can add product and sell them at different prices and monitor profit for total sales. Variants like size or colors can also be selected while adding and selling products.",
       assets: ["assets/images/uniwide.png"],
       tech: [
         "Flutter",
@@ -89,7 +90,8 @@ class AppContents {
         "Add, Remove, Edit and Sell Products",
         "Different Variants are available for products",
       ],
-      links: [ProjectLink(
+      links: [
+        ProjectLink(
           icon: Icons.android_rounded,
           name: "APK",
           url:
@@ -186,6 +188,112 @@ class AppContents {
           svgPath: "assets/icons/github.svg",
           name: "Github",
           url: "https://github.com/Zimmer550i/Crafting-Psyche",
+        ),
+      ],
+    ),
+    Project(
+      year: 2024,
+      mainTech: Technology.flutter,
+      type: DisplayType.split,
+      title: "Trivia App",
+      description:
+          "This trivia game project uses the OpenTDB API to bring a fun and interactive quiz experience to users. Players can select from 24 diverse topics and choose their preferred difficulty level: Easy, Medium, or Hard, to match their knowledge and skill. The game interface is designed to be simple and user-friendly, allowing seamless topic and difficulty selection. Trivia questions are dynamically fetched from the API, ensuring a fresh experience each time. The game also provides real-time score updates and feedback on answers, keeping users engaged and motivated as they play.",
+      assets: [
+        "assets/images/trivia_left.png",
+        "assets/images/trivia_right.png"
+      ],
+      tech: ["Flutter", "RESTful API"],
+      highlight: [
+        "Choose from 24 diverse trivia topics",
+        "Select difficulty level: Easy, Medium, or Hard",
+        "Fetch trivia questions dynamically from OpenTDB API",
+        "Simple and intuitive interface for topic and difficulty selection",
+        "Real-time score display with feedback on correct and incorrect answers"
+      ],
+      links: [
+        ProjectLink(
+          svgPath: "assets/icons/github.svg",
+          name: "Github",
+          url: "https://github.com/Zimmer550i/trivia_app/",
+        ),
+        ProjectLink(
+          icon: Icons.android_rounded,
+          name: "APK",
+          url:
+              "https://github.com/Zimmer550i/trivia_app/releases/download/v1.0/app-arm64-v8a-release.apk",
+        ),
+      ],
+    ),
+    Project(
+      year: 2023,
+      mainTech: Technology.ai,
+      type: DisplayType.split,
+      title: "Peach Leaf Bacterial Disease Detection App Using AI",
+      description:
+          "This Flutter app detects bacterial diseases in peach leaves using camera input. The app utilizes a custom-trained AI model, created with a Kaggle dataset and implemented with TensorFlow Lite (tflite) for efficient, on-device disease detection.",
+      assets: [
+        "assets/images/peach_1.png",
+        "assets/images/peach_2.png",
+      ],
+      tech: ["Flutter", "Kaggle", "AI", "Tflite"],
+      highlight: [
+        "Detects bacterial diseases in peach leaves using camera input",
+        "AI model trained on Kaggle dataset for high accuracy",
+        "TensorFlow Lite (tflite) integration for real-time, on-device inference",
+        "User-friendly Flutter interface for easy disease identification"
+      ],
+      links: [
+        ProjectLink(
+          svgPath: "assets/icons/github.svg",
+          name: "Github",
+          url: "https://github.com/Zimmer550i/peach_leaf_detection_app.git",
+        ),
+        ProjectLink(
+          icon: Icons.android_rounded,
+          name: "APK",
+          url:
+              "https://github.com/Zimmer550i/peach_leaf_detection_app/releases/download/v0.1-beta/app-release.apk",
+        ),
+      ],
+    ),
+    Project(
+      year: 2021,
+      mainTech: Technology.python,
+      type: DisplayType.right,
+      title: "Space Game",
+      description:
+          "This project, built with Python and Pygame, is one of my proudest accomplishments. Despite its simplicity, it presented significant challenges that taught me the fundamentals of game development, handling complex project workflows, and mastering essential data structures.",
+      assets: ["assets/images/space_game.png"],
+      tech: ["Python", "Pygame"],
+      highlight: [
+        "Endless mode to achieve the highest score possible",
+        "Difficulty dynamically increases with score",
+        "Mouse-based gameplay for precision control",
+        "Auto-shoot feature for continuous action"
+      ],
+      links: [
+        ProjectLink(
+          svgPath: "assets/icons/github.svg",
+          name: "Github",
+          url: "https://github.com/Zimmer550i/Space_Game.git",
+        ),
+      ],
+    ),
+    Project(
+      year: 2021,
+      mainTech: Technology.python,
+      type: DisplayType.left,
+      title: "Calculator App (Python)",
+      description:
+          "Basic calculator app made using Tkinter library. This is my very first project that has a GUI. Only whole numbers can be used as input but the output can be in float.",
+      assets: ["assets/images/calc_python.png"],
+      tech: ["Python", "Tkinter"],
+      highlight: [],
+      links: [
+        ProjectLink(
+          svgPath: "assets/icons/github.svg",
+          name: "Github",
+          url: "https://github.com/Zimmer550i/Calculator.git",
         ),
       ],
     ),

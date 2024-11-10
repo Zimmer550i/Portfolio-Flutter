@@ -42,7 +42,7 @@ class InfoPage extends StatelessWidget {
           constraints: BoxConstraints(maxWidth: constraints.maxHeight * 1.5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 flex: 2,
@@ -64,6 +64,7 @@ class InfoPage extends StatelessWidget {
   leftInfoWindow() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         aboutMe(),
         const SizedBox(
@@ -77,6 +78,7 @@ class InfoPage extends StatelessWidget {
   rightInfoWindow() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         skills(),
         const SizedBox(
@@ -90,6 +92,7 @@ class InfoPage extends StatelessWidget {
   aboutMe() {
     return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           "About Me:",
@@ -111,6 +114,7 @@ class InfoPage extends StatelessWidget {
 
   education() {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
@@ -150,6 +154,7 @@ class InfoPage extends StatelessWidget {
 
   skills() {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
@@ -197,6 +202,7 @@ class InfoPage extends StatelessWidget {
 
   contactInfo() {
     return const Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
