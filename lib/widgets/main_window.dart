@@ -3,12 +3,11 @@ import 'package:portfolio_flutter/utils/app_colors.dart';
 import 'package:portfolio_flutter/utils/app_contents.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
 import 'package:portfolio_flutter/utils/app_texts.dart';
+import 'package:portfolio_flutter/utils/is_mobile.dart';
 
 class MainWindow extends StatefulWidget {
-  final bool isMobile;
   const MainWindow({
     super.key,
-    this.isMobile = false,
   });
 
   @override
@@ -22,7 +21,7 @@ class _MainWindowState extends State<MainWindow> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     late double width, height;
-    if (widget.isMobile) {
+    if (isMobile(context)) {
       width = screenSize.width;
       height = screenSize.height;
     } else {
@@ -39,11 +38,11 @@ class _MainWindowState extends State<MainWindow> {
       decoration: BoxDecoration(
         color: AppColors.backgroundColor,
         border:
-            widget.isMobile ? null : Border.all(width: AppSizes.smallPadding),
+            isMobile(context) ? null : Border.all(width: AppSizes.smallPadding),
         borderRadius: BorderRadius.circular(AppSizes.mediumPadding),
       ),
       child: Padding(
-        padding: widget.isMobile
+        padding: isMobile(context)
             ? const EdgeInsets.only(
                 bottom: AppSizes.smallPadding,
                 left: AppSizes.mediumPadding,
@@ -67,7 +66,7 @@ class _MainWindowState extends State<MainWindow> {
   }
 
   Widget tabBarTop() {
-    if (widget.isMobile) {
+    if (isMobile(context)) {
       return Container();
     }
     return Column(
@@ -106,7 +105,7 @@ class _MainWindowState extends State<MainWindow> {
   }
 
   Widget tabBarBottom() {
-    if (!widget.isMobile) {
+    if (!isMobile(context)) {
       return Container();
     }
     return Stack(
@@ -151,7 +150,7 @@ class _MainWindowState extends State<MainWindow> {
           left: AppSizes.mediumPadding,
           right: AppSizes.mediumPadding,
           bottom: AppSizes.smallPadding,
-          top: widget.isMobile ? AppSizes.smallPadding : 0,
+          top: isMobile(context) ? AppSizes.smallPadding : 0,
         ),
         child: Text(
           e,

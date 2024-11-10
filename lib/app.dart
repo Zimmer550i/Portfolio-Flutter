@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
+import 'package:portfolio_flutter/utils/is_mobile.dart';
 import 'package:portfolio_flutter/widgets/main_window.dart';
 
 class App extends StatefulWidget {
@@ -32,11 +33,10 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    if (MediaQuery.of(context).size.width <
-        MediaQuery.of(context).size.height) {
+    if (isMobile(context)) {
       return const Scaffold(
         body: Center(
-          child: MainWindow(isMobile: true,),
+          child: MainWindow(),
         ),
       );
     }
@@ -45,9 +45,9 @@ class _AppState extends State<App> {
         cursor: SystemMouseCursors.none,
         onHover: (event) {
           _updateRotationAngles(
-              event,
-              MediaQuery.of(context)
-                  .size); // Update rotation angles based on mouse movement
+            event,
+            MediaQuery.of(context).size,
+          ); // Update rotation angles based on mouse movement
         },
         child: Stack(
           children: [

@@ -5,6 +5,7 @@ import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 import 'package:portfolio_flutter/project_model.dart';
 import 'package:portfolio_flutter/utils/app_contents.dart';
 import 'package:portfolio_flutter/utils/app_texts.dart';
+import 'package:portfolio_flutter/utils/is_mobile.dart';
 import 'package:portfolio_flutter/utils/log_event.dart';
 import 'package:portfolio_flutter/widgets/left_project_window.dart';
 import 'package:portfolio_flutter/widgets/mobile_project_window.dart';
@@ -42,7 +43,7 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxHeight > constraints.maxWidth * 0.8) {
+      if (isMobile(context)) {
         return mobileLayout(AppContents.projects[index]);
       } else {
         return webLayout(AppContents.projects[index]);

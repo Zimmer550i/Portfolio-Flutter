@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:portfolio_flutter/utils/app_colors.dart';
 import 'package:portfolio_flutter/utils/app_contents.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
+import 'package:portfolio_flutter/utils/is_mobile.dart';
 import 'package:portfolio_flutter/widgets/social_button.dart';
 
 class ProfileImageSection extends StatelessWidget {
-  final bool isMobile;
   const ProfileImageSection({
     super.key,
-    this.isMobile = false,
   });
 
   @override
@@ -20,8 +19,8 @@ class ProfileImageSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-                height: getSize(constraint),
-                width: getSize(constraint),
+                height: getSize(context, constraint),
+                width: getSize(context, constraint),
             decoration: BoxDecoration(
               border: Border.all(width: AppSizes.smallPadding),
               borderRadius: BorderRadius.circular(AppSizes.mediumPadding),
@@ -72,8 +71,8 @@ class ProfileImageSection extends StatelessWidget {
     });
   }
 
-  double getSize(BoxConstraints constraint) {
-    if (isMobile) {
+  double getSize(BuildContext context, BoxConstraints constraint) {
+    if (isMobile(context)) {
       return constraint.maxWidth / 1.5;
     }
     return constraint.maxWidth < constraint.maxHeight / 1.5

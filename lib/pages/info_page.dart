@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:portfolio_flutter/utils/app_contents.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
 import 'package:portfolio_flutter/utils/app_texts.dart';
+import 'package:portfolio_flutter/utils/is_mobile.dart';
 
 class InfoPage extends StatelessWidget {
   const InfoPage({super.key});
@@ -21,11 +22,14 @@ class InfoPage extends StatelessWidget {
       loggedOnce = true;
     }
     return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth < constraints.maxHeight) {
+      if (isMobile(context)) {
         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(
+                height: AppSizes.largePadding,
+              ),
               leftInfoWindow(),
               const SizedBox(
                 height: AppSizes.largePadding,

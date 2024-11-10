@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
+import 'package:portfolio_flutter/utils/is_mobile.dart';
 import 'package:portfolio_flutter/widgets/bug_flying_animation.dart';
 import 'package:portfolio_flutter/widgets/custom_button.dart';
 
@@ -20,8 +21,6 @@ class ExperiencePage extends StatelessWidget {
       loggedOnce = true;
     }
     return LayoutBuilder(builder: (context, constraints) {
-      bool isMobile = MediaQuery.of(context).size.width <
-          MediaQuery.of(context).size.height;
       return Stack(
         clipBehavior: Clip.none,
         children: [
@@ -57,29 +56,29 @@ class ExperiencePage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: isMobile ? 0 : -AppSizes.largePadding,
-            left: isMobile ? -AppSizes.mediumPadding : 0,
+            top: isMobile(context) ? -AppSizes.mediumPadding : -AppSizes.largePadding,
+            left: isMobile(context) ? -AppSizes.largePadding : 0,
             child: Image.asset(
               "assets/images/web_1.png",
-              width: isMobile
+              width: isMobile(context)
                   ? constraints.maxWidth / 2
                   : constraints.maxWidth / 5,
             ),
           ),
           Positioned(
-            top: isMobile ? 0 : -AppSizes.largePadding,
-            right: isMobile ? -AppSizes.smallPadding : 0,
+            top: isMobile(context) ? 0 : -AppSizes.largePadding,
+            right: isMobile(context) ? -AppSizes.smallPadding : 0,
             child: Transform.flip(
               flipX: true,
               child: Image.asset(
                 "assets/images/web_2.png",
-                width: isMobile
+                width: isMobile(context)
                     ? constraints.maxWidth / 2
                     : constraints.maxWidth / 3,
               ),
             ),
           ),
-          isMobile
+          isMobile(context)
               ? Container()
               : BugFlyingAnimation(
                   size: Size(constraints.maxWidth, constraints.maxHeight),

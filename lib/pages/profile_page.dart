@@ -1,5 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio_flutter/utils/app_sizes.dart';
+import 'package:portfolio_flutter/utils/is_mobile.dart';
 import 'package:portfolio_flutter/widgets/profile_image_section.dart';
 import 'package:portfolio_flutter/widgets/profile_details_section.dart';
 
@@ -20,17 +22,17 @@ class ProfilePage extends StatelessWidget {
     }
 
     return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxHeight >= constraints.maxWidth) {
-        return Center(
+      if (isMobile(context)) {
+        return const Center(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ProfileImageSection(
-                  isMobile: (constraints.maxHeight >= constraints.maxWidth),
-                ),
-                const ProfileDetailsSection(),
+                SizedBox(height: AppSizes.largePadding,),
+                ProfileImageSection(),
+                ProfileDetailsSection(),
+                SizedBox(height: AppSizes.largePadding,),
               ],
             ),
           ),
