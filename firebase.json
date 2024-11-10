@@ -1,21 +1,6 @@
 {
   "hosting": [
     {
-      "target": "portfolio-cddfa",
-      "public": "build/web",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
       "target": "zimmer550i",
       "public": "build/web",
       "ignore": [
