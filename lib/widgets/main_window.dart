@@ -38,16 +38,23 @@ class _MainWindowState extends State<MainWindow> {
       ),
       decoration: BoxDecoration(
         color: AppColors.backgroundColor,
-        border: widget.isMobile ? null : Border.all(width: AppSizes.smallPadding),
+        border:
+            widget.isMobile ? null : Border.all(width: AppSizes.smallPadding),
         borderRadius: BorderRadius.circular(AppSizes.mediumPadding),
       ),
       child: Padding(
-        padding: EdgeInsets.all(widget.isMobile ? AppSizes.smallPadding : AppSizes.mediumPadding),
+        padding: widget.isMobile
+            ? const EdgeInsets.only(
+                bottom: AppSizes.smallPadding,
+                left: AppSizes.mediumPadding,
+                right: AppSizes.mediumPadding,
+              )
+            : const EdgeInsets.all(AppSizes.mediumPadding),
         child: Column(
           children: [
-            const SizedBox(
-              height: AppSizes.smallPadding,
-            ),
+            // const SizedBox(
+            //   height: AppSizes.smallPadding,
+            // ),
             tabBarTop(),
             Expanded(
               child: AppContents.pages[index],
@@ -66,6 +73,9 @@ class _MainWindowState extends State<MainWindow> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(
+          height: AppSizes.smallPadding,
+        ),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(

@@ -56,7 +56,7 @@ class ExperiencePage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: isMobile ? -AppSizes.smallPadding : -AppSizes.largePadding,
+            top: isMobile ? 0 : -AppSizes.largePadding,
             left: isMobile ? -AppSizes.mediumPadding : 0,
             child: Image.asset(
               "assets/images/web_1.png",
@@ -66,7 +66,7 @@ class ExperiencePage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: isMobile ? -AppSizes.smallPadding : -AppSizes.largePadding,
+            top: isMobile ? 0 : -AppSizes.largePadding,
             right: isMobile ? -AppSizes.smallPadding : 0,
             child: Transform.flip(
               flipX: true,

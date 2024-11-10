@@ -20,16 +20,18 @@ class ProfilePage extends StatelessWidget {
 
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxHeight >= constraints.maxWidth) {
-        return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ProfileImageSection(
-                isMobile: (constraints.maxHeight >= constraints.maxWidth),
-              ),
-              const ProfileDetailsSection(),
-            ],
+        return Center(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ProfileImageSection(
+                  isMobile: (constraints.maxHeight >= constraints.maxWidth),
+                ),
+                const ProfileDetailsSection(),
+              ],
+            ),
           ),
         );
       }
