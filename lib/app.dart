@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:portfolio_flutter/utils/app_contents.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
+import 'package:portfolio_flutter/utils/is_mobile.dart';
 import 'package:portfolio_flutter/widgets/main_window.dart';
 
 class App extends StatefulWidget {
@@ -40,9 +41,11 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    if (isMouseConnected) {
-      const Scaffold(
-        body: MainWindow(),
+    if (isMobile(context) || !isMouseConnected) {
+      return const Scaffold(
+        body: Center(
+          child: MainWindow(),
+        ),
       );
     }
     return Scaffold(

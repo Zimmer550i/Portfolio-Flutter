@@ -28,7 +28,7 @@ class AppContents {
     "Flutter",
     "Firebase",
     "RESTful API",
-    "BLoC Pattern",
+    "BLoC, GetX, Provider",
     "Git version management",
     "Competitive Programming",
   ];
