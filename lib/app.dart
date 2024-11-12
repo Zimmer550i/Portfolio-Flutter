@@ -41,7 +41,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    if (isMobile(context) || !isMouseConnected) {
+    if (isMobile(context)) {
       return const Scaffold(
         body: Center(
           child: MainWindow(),
@@ -63,13 +63,13 @@ class _AppState extends State<App> {
               alignment: FractionalOffset.center,
               transform: Matrix4.identity()
                 ..setEntry(3, 2, 0.001) // Perspective
-                ..rotateX(_rotationX) // Rotate around X-axis (up/down)
-                ..rotateY(_rotationY), // Rotate around Y-axis (left/right)
+                ..rotateX(isMouseConnected ? _rotationX : 0) // Rotate around X-axis (up/down)
+                ..rotateY(isMouseConnected ? _rotationY : 0), // Rotate around Y-axis (left/right)
               child: const Center(
                 child: MainWindow(),
               ),
             ),
-            Positioned(
+            isMouseConnected ? Positioned(
               left: mouseX,
               top: mouseY,
               child: IgnorePointer(
@@ -78,7 +78,7 @@ class _AppState extends State<App> {
                   height: AppSizes.iconSizeMedium,
                 ),
               ),
-            ),
+            ): Container(),
           ],
         ),
       ),
