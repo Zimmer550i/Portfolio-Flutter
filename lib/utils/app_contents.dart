@@ -6,6 +6,8 @@ import 'package:portfolio_flutter/pages/project_page.dart';
 import 'package:portfolio_flutter/project_model.dart';
 
 class AppContents {
+  static const double rotationMultiplier = 3;
+
   static const List<String> tabs = [
     "Profile",
     "Info",
@@ -52,12 +54,40 @@ class AppContents {
 
   static List<Project> projects = [
     Project(
+      title: "This Portfolio Website",
+      mainTech: Technology.flutter,
+      year: 2024,
+      description:
+          "This website is designed with a minimalist approach to highlight my personal projects. Built using Flutter and hosted cost-free on Firebase Hosting, it integrates Firebase Analytics for tracking views and user interactions. You’re welcome to explore or fork the code directly from the GitHub Link given below.",
+      type: DisplayType.right,
+      tech: ["Flutter", "Firebase Hosting", "Firebase Analytics"],
+      highlight: [
+        "Built with Flutter for a responsive web experience. Optimized for all display sizes, from mobile to desktop",
+        "Minimalist design to emphasize personal project showcase",
+        "Hosted on Firebase Hosting for a reliable, cost-free solution",
+        "Integrated Firebase Analytics for tracking views and user interactions",
+      ],
+      assets: ["assets/images/portfolio.png"],
+      links: [
+        ProjectLink(
+          icon: Icons.link_rounded,
+          name: "Site",
+          url: "https://zimmer550i.web.app",
+        ),
+        ProjectLink(
+          svgPath: "assets/icons/github.svg",
+          name: "Github",
+          url: "https://github.com/Zimmer550i/Portfolio-Flutter",
+        ),
+      ],
+    ),
+    Project(
       mainTech: Technology.flutter,
       year: 2024,
       type: DisplayType.split,
       title: "Daily Expenditure",
       description:
-          "The Daily Expenditure app is a user-friendly tool designed to simplify tracking personal spending. With an easy tap-based input system, users can log their expenses quickly without needing a keyboard, making it ideal for on-the-go usage. Integrated with Firebase for secure authentication and real-time data management, the app ensures a smooth and reliable experience. It also features visual spending insights through charts and graphs powered by fl_chart, helping users understand and manage their finances effectively. A web version of the app is planned for future development to expand accessibility across platforms.",
+          "The Daily Expenditure app is a user-friendly tool designed to simplify tracking personal spending. With an easy tap-based input system, users can log their expenses quickly without needing a keyboard, making it ideal for on-the-go usage. Integrated with Firebase for secure authentication and real-time data management, the app ensures a smooth and reliable experience. It also features visual spending insights through charts and graphs powered by fl_chart, helping users understand and manage their finances effectively. A web version of the app is planned for future development to expand accessibility across platforms. The product is still in development. Codebase hasn't made public yet.",
       assets: [
         "assets/images/daily_exp_left.png",
         "assets/images/daily_exp_right.png",

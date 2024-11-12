@@ -74,6 +74,7 @@ class _ProjectPageState extends State<ProjectPage> {
                 index != 0 ? const Color.fromARGB(255, 8, 1, 1) : Colors.grey,
           ),
         ),
+        const SizedBox(width: AppSizes.smallPadding,),
         Expanded(
           child: Column(
             children: [
@@ -95,6 +96,7 @@ class _ProjectPageState extends State<ProjectPage> {
             ],
           ),
         ),
+        const SizedBox(width: AppSizes.smallPadding,),
         GestureDetector(
           onTap: () {
             if (index < AppContents.projects.length - 1) {
@@ -129,17 +131,6 @@ class _ProjectPageState extends State<ProjectPage> {
           textAlign: TextAlign.center,
         ),
         Expanded(child: MobileProjectWindow(project: project)),
-        // Container(
-        //   decoration: BoxDecoration(
-        //     color: AppColors.black,
-        //     borderRadius: BorderRadius.circular(AppSizes.smallPadding / 2),
-        //   ),
-        //   height: AppSizes.smallPadding,
-        //   width: double.infinity,
-        // ),
-        // const SizedBox(
-        //   height: AppSizes.mediumPadding,
-        // ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

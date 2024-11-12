@@ -1,8 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:portfolio_flutter/utils/app_contents.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
-import 'package:portfolio_flutter/utils/is_mobile.dart';
 import 'package:portfolio_flutter/widgets/main_window.dart';
 
 class App extends StatefulWidget {
@@ -26,18 +27,22 @@ class _AppState extends State<App> {
     final screenHeight = screenSize.height;
 
     setState(() {
-      _rotationY = (mouseX / screenWidth - 0.5) * pi / 12;
-      _rotationX = -(mouseY / screenHeight - 0.5) * pi / 12;
+      _rotationY = (mouseX / screenWidth - 0.5) * pi / 6;
+      _rotationY /= AppContents.rotationMultiplier;
+      _rotationX = -(mouseY / screenHeight - 0.5) * pi / 6;
+      _rotationX /= AppContents.rotationMultiplier;
     });
+  }
+
+  bool get isMouseConnected {
+    return RendererBinding.instance.mouseTracker.mouseIsConnected;
   }
 
   @override
   Widget build(BuildContext context) {
-    if (isMobile(context)) {
-      return const Scaffold(
-        body: Center(
-          child: MainWindow(),
-        ),
+    if (isMouseConnected) {
+      const Scaffold(
+        body: MainWindow(),
       );
     }
     return Scaffold(
