@@ -327,5 +327,28 @@ class AppContents {
         ),
       ],
     ),
+    Project(
+      year: 2024,
+      title: "Full Stack Bus Station Management (Ongoing)",
+      mainTech: Technology.web,
+      type: DisplayType.left,
+      description: "This is a simple, bare-bones web application for managing bus station operations, built on a LAMP(Linux, Apache, Mysql, PHP) stack and containerized with Docker. The backend is fully implemented, exposing a REST API with basic CRUD functionality for managing buses, bus stations, routes, and employees. The frontend is in progress, focusing on providing a minimal yet functional interface.",
+      assets: [
+        "assets/images/lamp.png",
+      ],
+      tech: ["Docker", "Linux", "Apache", "MySQL", "PHP", "HTML", "CSS", "JS"],
+      highlight: [
+        "Full-Stack website using LAMP stack",
+        "MySQL database setup with fundamental relational structure.",
+        "Dockerized for easy deployment and environment consistency.",
+      ],
+      links: [
+        ProjectLink(
+          svgPath: "assets/icons/github.svg",
+          name: "Github",
+          url: "https://github.com/Zimmer550i/Bus-Station-Management.git",
+        ),
+      ],
+    ),
   ];
 }
