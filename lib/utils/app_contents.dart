@@ -44,7 +44,7 @@ class AppContents {
     // },
     {
       "icon": "assets/icons/linkedin.svg",
-      "link": "https://www.linkedin.com/in/wasiul-islam-398a71189/",
+      "link": "https://www.linkedin.com/in/md-wasiul-islam-398a71189/",
     },
     {
       "icon": "assets/icons/codeforces.svg",
@@ -82,25 +82,6 @@ class AppContents {
       ],
     ),
     Project(
-      mainTech: Technology.flutter,
-      year: 2024,
-      type: DisplayType.split,
-      title: "Daily Expenditure",
-      description:
-          "The Daily Expenditure app is a user-friendly tool designed to simplify tracking personal spending. With an easy tap-based input system, users can log their expenses quickly without needing a keyboard, making it ideal for on-the-go usage. Integrated with Firebase for secure authentication and real-time data management, the app ensures a smooth and reliable experience. It also features visual spending insights through charts and graphs powered by fl_chart, helping users understand and manage their finances effectively. A web version of the app is planned for future development to expand accessibility across platforms. The product is still in development. Codebase hasn't made public yet.",
-      assets: [
-        "assets/images/daily_exp_left.png",
-        "assets/images/daily_exp_right.png",
-      ],
-      tech: ["Flutter", "Firebase", "Authentication", "Graph", "Provider"],
-      highlight: [
-        "Keyboardless data entry",
-        "Charts and Graphs for better insight",
-        "Realtime data backup and sync across multiple devices",
-      ],
-      links: [],
-    ),
-    Project(
       year: 2023,
       mainTech: Technology.flutter,
       type: DisplayType.right,
@@ -131,6 +112,30 @@ class AppContents {
           svgPath: "assets/icons/github.svg",
           name: "Github",
           url: "https://github.com/Zimmer550i/saad_project",
+        ),
+      ],
+    ),
+    Project(
+      year: 2024,
+      title: "Full Stack Bus Station Management App",
+      mainTech: Technology.web,
+      type: DisplayType.left,
+      description:
+          "This is a basic web application built with the LAMP stack (Linux, Apache, MySQL, PHP) and containerized using Docker. The backend is fully implemented, offering a REST API with basic CRUD functionality for managing buses, bus stations, routes, and employees. The frontend is kept minimal, focusing primarily on providing a functional interface to interact with the backend's CRUD operations.",
+      assets: [
+        "assets/images/lamp.png",
+      ],
+      tech: ["Docker", "Linux", "Apache", "MySQL", "PHP", "HTML", "CSS", "JS"],
+      highlight: [
+        "Full-Stack website using LAMP stack",
+        "MySQL database setup with fundamental relational structure.",
+        "Dockerized for easy deployment and environment consistency.",
+      ],
+      links: [
+        ProjectLink(
+          svgPath: "assets/icons/github.svg",
+          name: "Github",
+          url: "https://github.com/Zimmer550i/Bus-Station-Management.git",
         ),
       ],
     ),
@@ -328,27 +333,23 @@ class AppContents {
       ],
     ),
     Project(
+      mainTech: Technology.flutter,
       year: 2024,
-      title: "Full Stack Bus Station Management (Ongoing)",
-      mainTech: Technology.web,
-      type: DisplayType.left,
-      description: "This is a simple, bare-bones web application for managing bus station operations, built on a LAMP(Linux, Apache, Mysql, PHP) stack and containerized with Docker. The backend is fully implemented, exposing a REST API with basic CRUD functionality for managing buses, bus stations, routes, and employees. The frontend is in progress, focusing on providing a minimal yet functional interface.",
+      type: DisplayType.split,
+      title: "Daily Expenditure (Ongoing)",
+      description:
+          "The Daily Expenditure app is a user-friendly tool designed to simplify tracking personal spending. With an easy tap-based input system, users can log their expenses quickly without needing a keyboard, making it ideal for on-the-go usage. Integrated with Firebase for secure authentication and real-time data management, the app ensures a smooth and reliable experience. It also features visual spending insights through charts and graphs powered by fl_chart, helping users understand and manage their finances effectively. A web version of the app is planned for future development to expand accessibility across platforms. The product is still in development. Codebase hasn't made public yet.",
       assets: [
-        "assets/images/lamp.png",
+        "assets/images/daily_exp_left.png",
+        "assets/images/daily_exp_right.png",
       ],
-      tech: ["Docker", "Linux", "Apache", "MySQL", "PHP", "HTML", "CSS", "JS"],
+      tech: ["Flutter", "Firebase", "Authentication", "Graph", "Provider"],
       highlight: [
-        "Full-Stack website using LAMP stack",
-        "MySQL database setup with fundamental relational structure.",
-        "Dockerized for easy deployment and environment consistency.",
+        "Keyboardless data entry",
+        "Charts and Graphs for better insight",
+        "Realtime data backup and sync across multiple devices",
       ],
-      links: [
-        ProjectLink(
-          svgPath: "assets/icons/github.svg",
-          name: "Github",
-          url: "https://github.com/Zimmer550i/Bus-Station-Management.git",
-        ),
-      ],
+      links: [],
     ),
   ];
 }
