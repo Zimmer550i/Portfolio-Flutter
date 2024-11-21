@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:portfolio_flutter/app.dart';
 import 'package:portfolio_flutter/utils/app_colors.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -75,6 +75,7 @@ class InfoPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(flex: 3, child: aboutMe()),
                     const SizedBox(
@@ -91,6 +92,7 @@ class InfoPage extends StatelessWidget {
                   height: AppSizes.largePadding,
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(flex: 3, child: education()),
                     const SizedBox(

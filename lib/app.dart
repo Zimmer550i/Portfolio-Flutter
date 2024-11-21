@@ -2,6 +2,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:portfolio_flutter/main.dart';
 import 'package:portfolio_flutter/utils/app_contents.dart';
 import 'package:portfolio_flutter/utils/app_sizes.dart';
 import 'package:portfolio_flutter/utils/is_mobile.dart';
@@ -63,22 +65,30 @@ class _AppState extends State<App> {
               alignment: FractionalOffset.center,
               transform: Matrix4.identity()
                 ..setEntry(3, 2, 0.001) // Perspective
-                ..rotateX(isMouseConnected ? _rotationX : 0) // Rotate around X-axis (up/down)
-                ..rotateY(isMouseConnected ? _rotationY : 0), // Rotate around Y-axis (left/right)
+                ..rotateX(isMouseConnected
+                    ? _rotationX
+                    : 0) // Rotate around X-axis (up/down)
+                ..rotateY(isMouseConnected
+                    ? _rotationY
+                    : 0), // Rotate around Y-axis (left/right)
               child: const Center(
                 child: MainWindow(),
               ),
-            ),
-            isMouseConnected ? Positioned(
-              left: mouseX,
-              top: mouseY,
-              child: IgnorePointer(
-                child: Image.asset(
-                  'assets/icons/cursor.png',
-                  height: AppSizes.iconSizeMedium,
+            ).animate().fadeIn(
+                  duration: const Duration(milliseconds: 100),
                 ),
-              ),
-            ): Container(),
+            isMouseConnected
+                ? Positioned(
+                    left: mouseX,
+                    top: mouseY,
+                    child: IgnorePointer(
+                      child: Image.asset(
+                        'assets/icons/cursor.png',
+                        height: AppSizes.iconSizeMedium,
+                      ),
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),
