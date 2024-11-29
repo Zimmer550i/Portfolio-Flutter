@@ -19,8 +19,8 @@ class ProfileImageSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-                height: getSize(context, constraint),
-                width: getSize(context, constraint),
+            height: getSize(context, constraint),
+            width: getSize(context, constraint),
             decoration: BoxDecoration(
               border: Border.all(width: AppSizes.smallPadding),
               borderRadius: BorderRadius.circular(AppSizes.mediumPadding),
@@ -28,8 +28,7 @@ class ProfileImageSection extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(AppSizes.smallPadding),
               child: Image.asset(
-                // "assets/icons/facebook.png",
-                "assets/images/sakif.jpg",
+                AppContents.profileImgAsset,
                 frameBuilder: (BuildContext context, Widget child, int? frame,
                     bool wasSynchronouslyLoaded) {
                   if (wasSynchronouslyLoaded) {
@@ -38,10 +37,10 @@ class ProfileImageSection extends StatelessWidget {
                   return frame == null
                       ? const Center(
                           child: CircularProgressIndicator(
-                      color: AppColors.black,
-                      strokeCap: StrokeCap.round,
-                      strokeWidth: 8,
-                    ),
+                            color: AppColors.black,
+                            strokeCap: StrokeCap.round,
+                            strokeWidth: 8,
+                          ),
                         )
                       : child;
                 },

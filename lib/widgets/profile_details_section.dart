@@ -47,24 +47,23 @@ class ProfileDetailsSection extends StatelessWidget {
             ),
           );
         }),
-        const FittedBox(
+        FittedBox(
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: AppSizes.mediumPadding),
+            padding: const EdgeInsets.symmetric(vertical: AppSizes.mediumPadding),
             child: Row(
               children: [
                 CustomButton(
                   icon: Icons.text_snippet_rounded,
                   text: "Get CV",
-                  link:
-                      "https://www.canva.com/design/DAFoT4qxCXU/8fBNTXshbHKKSSUFOwfHXw/view?utm_content=DAFoT4qxCXU&utm_campaign=designshare&utm_medium=link&utm_source=editor",
+                  link: "${Uri.base.toString()}/${AppContents.cvFileName}",
                 ),
-                SizedBox(
+                const SizedBox(
                   width: AppSizes.mediumPadding,
                 ),
-                CustomButton(
+                const CustomButton(
                   icon: Icons.email_rounded,
                   text: "Contact Me",
-                  link: "mailto:sakif049@gmail.com",
+                  link: "mailto:${AppContents.emailAddress}",
                 ),
               ],
             ),

@@ -9,6 +9,9 @@
 .history
 .svn/
 migrate_working_dir/
+
+# Secret
+web/secret.js
 firebase_options.dart
 
 # IntelliJ related

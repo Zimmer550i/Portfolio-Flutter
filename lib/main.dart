@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:portfolio_flutter/app.dart';
 import 'package:portfolio_flutter/utils/app_colors.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,7 +7,8 @@ import 'package:portfolio_flutter/utils/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(    options: FirebaseOptions(
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
       apiKey: firebaseConfig["apiKey"]!,
       authDomain: firebaseConfig["authDomain"]!,
       projectId: firebaseConfig["projectId"]!,
@@ -16,7 +16,8 @@ Future<void> main() async {
       messagingSenderId: firebaseConfig["messagingSenderId"]!,
       appId: firebaseConfig["appId"]!,
       measurementId: firebaseConfig["measurementId"]!,
-    ),);
+    ),
+  );
   runApp(const MyApp());
 }
 

@@ -20,6 +20,10 @@ class AppContents {
     const ProjectPage(),
     const ExperiencePage(),
   ];
+
+  static const String profileImgAsset = "assets/images/sakif.jpg";
+  static const String cvFileName = "CV.pdf";
+  static const String emailAddress = "sakif049@gmail.com";
   static const String profileDescription =
       "a self-taught Flutter developer with a generalist approach and a background in competitive programming, pursuing collaborative environment to apply my skills and deepen my learning.";
   static const String detailedDescription =
