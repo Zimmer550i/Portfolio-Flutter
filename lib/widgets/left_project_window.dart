@@ -15,7 +15,10 @@ class LeftProjectWindow extends StatelessWidget {
           flex: 2,
           child: ProjectImageSection(project: project, i: 0),
         ),
-        Expanded(child: ProjectDetailsSection(project: project)),
+        Expanded(
+          flex: MediaQuery.of(context).size.width > 1200 ? 1 : 2,
+          child: ProjectDetailsSection(project: project),
+        ),
       ],
     );
   }

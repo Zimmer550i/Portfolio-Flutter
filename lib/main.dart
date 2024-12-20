@@ -7,18 +7,22 @@ import 'package:portfolio_flutter/utils/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: FirebaseOptions(
-      apiKey: firebaseConfig["apiKey"]!,
-      authDomain: firebaseConfig["authDomain"]!,
-      projectId: firebaseConfig["projectId"]!,
-      storageBucket: firebaseConfig["storageBucket"]!,
-      messagingSenderId: firebaseConfig["messagingSenderId"]!,
-      appId: firebaseConfig["appId"]!,
-      measurementId: firebaseConfig["measurementId"]!,
-    ),
-  );
-  runApp(const MyApp());
+  try {
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: firebaseConfig["apiKey"]!,
+        authDomain: firebaseConfig["authDomain"]!,
+        projectId: firebaseConfig["projectId"]!,
+        storageBucket: firebaseConfig["storageBucket"]!,
+        messagingSenderId: firebaseConfig["messagingSenderId"]!,
+        appId: firebaseConfig["appId"]!,
+        measurementId: firebaseConfig["measurementId"]!,
+      ),
+    );
+    runApp(const MyApp());
+  } catch (e) {
+    debugPrint('Error initializing Firebase: $e');
+  }
 }
 
 class MyApp extends StatelessWidget {

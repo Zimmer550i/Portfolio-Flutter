@@ -11,7 +11,10 @@ class RightProjectWindow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: ProjectDetailsSection(project: project)),
+        Expanded(
+          flex: MediaQuery.of(context).size.width > 1200 ? 1 : 2,
+          child: ProjectDetailsSection(project: project),
+        ),
         Expanded(
           flex: 2,
           child: ProjectImageSection(project: project, i: 0),

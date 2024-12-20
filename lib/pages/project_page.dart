@@ -68,7 +68,7 @@ class _ProjectPageState extends State<ProjectPage> {
           },
           child: SvgPicture.asset(
             "assets/icons/arrow_backward.svg",
-            width: AppSizes.iconSizeMedium,
+            width: MediaQuery.of(context).size.width > 1000 ? AppSizes.iconSizeMedium : AppSizes.iconSizeSmall,
             // ignore: deprecated_member_use
             color:
                 index != 0 ? const Color.fromARGB(255, 8, 1, 1) : Colors.grey,
@@ -111,7 +111,7 @@ class _ProjectPageState extends State<ProjectPage> {
           },
           child: SvgPicture.asset(
             "assets/icons/arrow_forward.svg",
-            width: AppSizes.iconSizeMedium,
+            width: MediaQuery.of(context).size.width > 1000 ? AppSizes.iconSizeMedium : AppSizes.iconSizeSmall,
             // ignore: deprecated_member_use
             color: index < AppContents.projects.length - 1
                 ? AppColors.black
@@ -203,8 +203,6 @@ class _ProjectPageState extends State<ProjectPage> {
         return ProjectImageSection(project: project, i: 0);
       case DisplayType.right:
         return RightProjectWindow(project: project);
-      default:
-        return SplitProjectWindow(project: project);
-    }
+      }
   }
 }
