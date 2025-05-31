@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Zimmer550i',
+      title: 'Swajantina',
       scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
         PointerDeviceKind.mouse,
         PointerDeviceKind.touch,

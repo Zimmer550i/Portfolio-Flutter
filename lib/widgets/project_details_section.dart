@@ -26,10 +26,13 @@ class _ProjectDetailsSectionState extends State<ProjectDetailsSection> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final double projectInfoHeight = projectInfoKey.currentContext?.size?.height ?? 0;
-      final double projectLinksHeight = projectLinksKey.currentContext?.size?.height ?? 0;
+      final double projectInfoHeight =
+          projectInfoKey.currentContext?.size?.height ?? 0;
+      final double projectLinksHeight =
+          projectLinksKey.currentContext?.size?.height ?? 0;
 
-      final double newRequiredHeight = projectInfoHeight + projectLinksHeight + AppSizes.mediumPadding;
+      final double newRequiredHeight =
+          projectInfoHeight + projectLinksHeight + AppSizes.mediumPadding;
 
       if (newRequiredHeight != requiredHeight) {
         setState(() {
@@ -39,7 +42,8 @@ class _ProjectDetailsSectionState extends State<ProjectDetailsSection> {
     });
 
     return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.hasBoundedHeight && requiredHeight < constraints.maxHeight) {
+      if (constraints.hasBoundedHeight &&
+          requiredHeight < constraints.maxHeight) {
         return Column(
           children: [
             projectInfo(projectInfoKey),
@@ -48,15 +52,19 @@ class _ProjectDetailsSectionState extends State<ProjectDetailsSection> {
           ],
         );
       }
-      return SingleChildScrollView(
-        child: Column(
-          children: [
-            projectInfo(projectInfoKey),
-            const SizedBox(
-              height: AppSizes.mediumPadding,
-            ),
-            projectLinks(projectLinksKey),
-          ],
+      return Scrollbar(
+        thumbVisibility: true,
+        trackVisibility: true,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              projectInfo(projectInfoKey),
+              const SizedBox(
+                height: AppSizes.smallPadding,
+              ),
+              projectLinks(projectLinksKey),
+            ],
+          ),
         ),
       );
     });

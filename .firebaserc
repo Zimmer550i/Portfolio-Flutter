@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "swajan-portfolio"
+  },
+  "targets": {
+    "swajan-portfolio": {
+      "hosting": {
+        "smsajan": [
+          "smsajan"
+        ]
+      }
+    }
   }
 }

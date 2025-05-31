@@ -21,11 +21,13 @@ class AppContents {
     const ExperiencePage(),
   ];
 
-  static const String profileImgAsset = "assets/images/sakif.jpg";
+  static const String name1 = "SM Swajan";
+  static const String name2 = "Queen Swajantina";
+  static const String profileImgAsset = "assets/images/sajan.jpg";
   static const String cvFileName = "CV.pdf";
   static const String emailAddress = "sakif049@gmail.com";
   static const String profileDescription =
-      "a self-taught Flutter developer with a generalist approach and a background in competitive programming, pursuing collaborative environment to apply my skills and deepen my learning.";
+      "a professional gay with a bold spirit and a love for good vibes, lives life unapologetically. Known for his passion for cannabis culture and a flair for creativity, he blends professionalism with authenticity in everything he does.";
   static const String detailedDescription =
       """I'm a Flutter developer with a generalist approach, skilled in building versatile and user-focused applications. My background includes a strong foundation in competitive programming, giving me a keen eye for problem-solving and optimized solutions. Self-taught and dedicated, I’m passionate about merging creativity with technical expertise to create impactful digital experiences. Whether it's tackling complex app architectures or refining UI details, I bring a diverse skill set and a drive for continuous learning to every project.""";
   static const List<String> skills = [
@@ -34,7 +36,7 @@ class AppContents {
     "RESTful API",
     "BLoC, GetX, Provider",
     "Git version management",
-    "Competitive Programming",
+    "Being a GAY LORD",
   ];
 
   static const List<Map<String, String>> social = [

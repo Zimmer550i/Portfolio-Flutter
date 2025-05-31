@@ -25,12 +25,12 @@ class ProfileDetailsSection extends StatelessWidget {
           pause: const Duration(seconds: 3),
           animatedTexts: [
             TypewriterAnimatedText(
-              "MD Wasiul Islam",
+              AppContents.name1,
               speed: const Duration(milliseconds: 60),
               textStyle: AppTexts.tabText.copyWith(fontSize: 48),
             ),
             TypewriterAnimatedText(
-              "Zimmer550i",
+              AppContents.name2,
               speed: const Duration(milliseconds: 60),
               textStyle: AppTexts.tabText
                   .copyWith(fontWeight: FontWeight.w900, fontSize: 48),
