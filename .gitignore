@@ -67,3 +67,6 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Credentials
+lib/utils/firebase_credentials.dart

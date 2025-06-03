@@ -3,20 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:portfolio_flutter/app.dart';
 import 'package:portfolio_flutter/utils/app_colors.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:portfolio_flutter/utils/firebase_credentials.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
-    const firebaseConfig = {
-      "apiKey": "AIzaSyAdeHUOivReAx9LXQVDpWDTJd7-Ax-TIs8",
-      "authDomain": "swajan-portfolio.firebaseapp.com",
-      "projectId": "swajan-portfolio",
-      "storageBucket": "swajan-portfolio.firebasestorage.app",
-      "messagingSenderId": "192953992285",
-      "appId": "1:192953992285:web:b59d77c0c800fc05eb39b4",
-      "measurementId": "G-7TBM4ELNM8",
-    };
-
     await Firebase.initializeApp(
       options: FirebaseOptions(
         apiKey: firebaseConfig["apiKey"]!,
