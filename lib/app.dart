@@ -60,6 +60,27 @@ class _AppState extends State<App> {
         },
         child: Stack(
           children: [
+            // Positioned.fill(
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //       gradient: RadialGradient(
+            //         radius: MediaQuery.of(context).size.height / 2,
+            //         colors: const [Colors.amber, Colors.transparent],
+            //         stops: const [0.5, 0.5],
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            Positioned.fill(
+              child: Opacity(
+                opacity: 0.05,
+                child: Image.asset(
+                  "assets/images/grain.jpg",
+                  colorBlendMode: BlendMode.overlay,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
             Transform(
               alignment: FractionalOffset.center,
               transform: Matrix4.identity()

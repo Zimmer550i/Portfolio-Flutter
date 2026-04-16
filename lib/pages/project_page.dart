@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 import 'package:portfolio_flutter/project_model.dart';
@@ -9,10 +10,10 @@ import 'package:portfolio_flutter/utils/is_mobile.dart';
 import 'package:portfolio_flutter/utils/log_event.dart';
 import 'package:portfolio_flutter/widgets/left_project_window.dart';
 import 'package:portfolio_flutter/widgets/mobile_project_window.dart';
-import 'package:portfolio_flutter/widgets/page_view_index.dart';
 import 'package:portfolio_flutter/widgets/project_image_section.dart';
 import 'package:portfolio_flutter/widgets/right_project_window.dart';
 import 'package:portfolio_flutter/widgets/split_project_window.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../utils/app_colors.dart';
 import '../utils/app_sizes.dart';
@@ -27,6 +28,7 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   int index = 0;
   late PageController _controller;
+  bool _isPageAnimating = false;
 
   @override
   void initState() {
@@ -38,6 +40,32 @@ class _ProjectPageState extends State<ProjectPage> {
   void logScreenEvent() async {
     await FirebaseAnalytics.instance
         .logScreenView(screenName: "Project Screen");
+  }
+
+  Future<void> _goToPage(int newIndex) async {
+    if (_isPageAnimating ||
+        newIndex < 0 ||
+        newIndex >= AppContents.projects.length) {
+      return;
+    }
+
+    logCustomEvent("Project Page Browsed");
+    setState(() {
+      index = newIndex;
+      _isPageAnimating = true;
+    });
+
+    await _controller.animateToPage(
+      newIndex,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.decelerate,
+    );
+
+    if (mounted) {
+      setState(() {
+        _isPageAnimating = false;
+      });
+    }
   }
 
   @override
@@ -54,27 +82,6 @@ class _ProjectPageState extends State<ProjectPage> {
   Row webLayout(Project project) {
     return Row(
       children: [
-        GestureDetector(
-          onTap: () {
-            if (index > 0) {
-              logCustomEvent("Project Page Browsed");
-              setState(() {
-                index--;
-                _controller.animateToPage(index,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.decelerate);
-              });
-            }
-          },
-          child: SvgPicture.asset(
-            "assets/icons/arrow_backward.svg",
-            width: MediaQuery.of(context).size.width > 1000 ? AppSizes.iconSizeMedium : AppSizes.iconSizeSmall,
-            // ignore: deprecated_member_use
-            color:
-                index != 0 ? const Color.fromARGB(255, 8, 1, 1) : Colors.grey,
-          ),
-        ),
-        const SizedBox(width: AppSizes.smallPadding,),
         Expanded(
           child: Column(
             children: [
@@ -85,38 +92,57 @@ class _ProjectPageState extends State<ProjectPage> {
                 ),
               ),
               Expanded(
-                child: PageView.builder(
-                    controller: _controller,
-                    itemCount: AppContents.projects.length,
-                    itemBuilder: (context, idx) {
-                      return getProjectWindow(AppContents.projects[idx]);
-                    }),
+                child: Listener(
+                  onPointerSignal: (event) {
+                    if (event is PointerScrollEvent) {
+                      if (event.scrollDelta.dy > 0) {
+                        _goToPage(index + 1);
+                      } else if (event.scrollDelta.dy < 0) {
+                        _goToPage(index - 1);
+                      }
+                    }
+                  },
+                  child: ScrollConfiguration(
+                    behavior: ScrollConfiguration.of(context).copyWith(
+                      dragDevices: {
+                        PointerDeviceKind.touch,
+                        PointerDeviceKind.mouse,
+                        PointerDeviceKind.trackpad,
+                        PointerDeviceKind.stylus,
+                        PointerDeviceKind.unknown,
+                      },
+                    ),
+                    child: PageView.builder(
+                        controller: _controller,
+                        scrollDirection: Axis.vertical,
+                        physics: const NeverScrollableScrollPhysics(),
+                        onPageChanged: (value) {
+                          if (value != index) {
+                            setState(() {
+                              index = value;
+                            });
+                          }
+                        },
+                        itemCount: AppContents.projects.length,
+                        itemBuilder: (context, idx) {
+                          return getProjectWindow(AppContents.projects[idx]);
+                        }),
+                  ),
+                ),
               ),
-              PageViewIndex(index: index),
             ],
           ),
         ),
-        const SizedBox(width: AppSizes.smallPadding,),
-        GestureDetector(
-          onTap: () {
-            if (index < AppContents.projects.length - 1) {
-              logCustomEvent("Project Page Browsed");
-              setState(() {
-                index++;
-                _controller.animateToPage(index,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.decelerate);
-              });
-            }
+        SmoothPageIndicator(
+          controller: _controller,
+          axisDirection: Axis.vertical,
+          effect: const ExpandingDotsEffect(activeDotColor: AppColors.border),
+          onDotClicked: (val) {
+            setState(() {
+              index = val;
+            });
           },
-          child: SvgPicture.asset(
-            "assets/icons/arrow_forward.svg",
-            width: MediaQuery.of(context).size.width > 1000 ? AppSizes.iconSizeMedium : AppSizes.iconSizeSmall,
-            // ignore: deprecated_member_use
-            color: index < AppContents.projects.length - 1
-                ? AppColors.black
-                : Colors.grey,
-          ),
+          count: AppContents.projects.length,
         ),
       ],
     );
@@ -203,6 +229,6 @@ class _ProjectPageState extends State<ProjectPage> {
         return ProjectImageSection(project: project, i: 0);
       case DisplayType.right:
         return RightProjectWindow(project: project);
-      }
+    }
   }
 }
