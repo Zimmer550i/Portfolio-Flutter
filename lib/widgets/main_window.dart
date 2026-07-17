@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:portfolio_flutter/utils/app_colors.dart';
 import 'package:portfolio_flutter/utils/app_contents.dart';
@@ -36,9 +37,10 @@ class _MainWindowState extends State<MainWindow> {
         maxWidth: height * 1.7776,
       ),
       decoration: BoxDecoration(
-        color: AppColors.backgroundColor,
-        border:
-            isMobile(context) ? null : Border.all(width: AppSizes.smallPadding),
+        // color: AppColors.backgroundColor,
+        // border: isMobile(context)
+        //     ? null
+        //     : Border.all(width: AppSizes.smallPadding),
         borderRadius: BorderRadius.circular(AppSizes.mediumPadding),
       ),
       child: Padding(

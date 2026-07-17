@@ -68,13 +68,17 @@ class _ProjectPageState extends State<ProjectPage> {
           },
           child: SvgPicture.asset(
             "assets/icons/arrow_backward.svg",
-            width: MediaQuery.of(context).size.width > 1000 ? AppSizes.iconSizeMedium : AppSizes.iconSizeSmall,
+            width: MediaQuery.of(context).size.width > 1000
+                ? AppSizes.iconSizeMedium
+                : AppSizes.iconSizeSmall,
             // ignore: deprecated_member_use
             color:
                 index != 0 ? const Color.fromARGB(255, 8, 1, 1) : Colors.grey,
           ),
         ),
-        const SizedBox(width: AppSizes.smallPadding,),
+        const SizedBox(
+          width: AppSizes.smallPadding,
+        ),
         Expanded(
           child: Column(
             children: [
@@ -96,7 +100,9 @@ class _ProjectPageState extends State<ProjectPage> {
             ],
           ),
         ),
-        const SizedBox(width: AppSizes.smallPadding,),
+        const SizedBox(
+          width: AppSizes.smallPadding,
+        ),
         GestureDetector(
           onTap: () {
             if (index < AppContents.projects.length - 1) {
@@ -111,7 +117,9 @@ class _ProjectPageState extends State<ProjectPage> {
           },
           child: SvgPicture.asset(
             "assets/icons/arrow_forward.svg",
-            width: MediaQuery.of(context).size.width > 1000 ? AppSizes.iconSizeMedium : AppSizes.iconSizeSmall,
+            width: MediaQuery.of(context).size.width > 1000
+                ? AppSizes.iconSizeMedium
+                : AppSizes.iconSizeSmall,
             // ignore: deprecated_member_use
             color: index < AppContents.projects.length - 1
                 ? AppColors.black
@@ -159,7 +167,7 @@ class _ProjectPageState extends State<ProjectPage> {
               child: PageViewDotIndicator(
                 currentItem: index,
                 count: AppContents.projects.length,
-                unselectedColor: Colors.black.withOpacity(0.3),
+                unselectedColor: Colors.black.withValues(alpha: 0.3),
                 selectedColor: AppColors.black,
               ),
             ),
@@ -203,6 +211,6 @@ class _ProjectPageState extends State<ProjectPage> {
         return ProjectImageSection(project: project, i: 0);
       case DisplayType.right:
         return RightProjectWindow(project: project);
-      }
+    }
   }
 }

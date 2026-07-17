@@ -15,7 +15,7 @@ class PageViewIndex extends StatelessWidget {
     return PageViewDotIndicator(
       currentItem: index,
       count: AppContents.projects.length,
-      unselectedColor: Colors.black.withOpacity(0.3),
+      unselectedColor: Colors.black.withValues(alpha: 0.3),
       selectedColor: AppColors.black,
     );
   }

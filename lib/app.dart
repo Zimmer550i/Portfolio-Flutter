@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -12,10 +13,10 @@ class App extends StatefulWidget {
   const App({super.key});
 
   @override
-  State<App> createState() => _AppState();
+  State<App> createState() => AppState();
 }
 
-class _AppState extends State<App> {
+class AppState extends State<App> {
   double _rotationX = 0;
   double _rotationY = 0;
   double mouseX = 0;
@@ -56,22 +57,92 @@ class _AppState extends State<App> {
           _updateRotationAngles(
             event,
             MediaQuery.of(context).size,
-          ); // Update rotation angles based on mouse movement
+          );
         },
         child: Stack(
           children: [
+            Positioned.fill(
+              child: Image.asset(
+                "assets/images/bg.jpg",
+                fit: BoxFit.cover,
+              ),
+            ),
             Transform(
               alignment: FractionalOffset.center,
               transform: Matrix4.identity()
-                ..setEntry(3, 2, 0.001) // Perspective
-                ..rotateX(isMouseConnected
-                    ? _rotationX
-                    : 0) // Rotate around X-axis (up/down)
-                ..rotateY(isMouseConnected
-                    ? _rotationY
-                    : 0), // Rotate around Y-axis (left/right)
-              child: const Center(
-                child: MainWindow(),
+                ..setEntry(3, 2, 0.001) // Perspective Formula
+                ..rotateX(isMouseConnected ? _rotationX : 0)
+                ..rotateY(isMouseConnected ? _rotationY : 0),
+              child: Center(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final screenSize = MediaQuery.of(context).size;
+                    final sw = screenSize.width;
+                    final sh = screenSize.height;
+                    final windowW = sw * AppSizes.webPadding;
+                    final windowH = sh * AppSizes.webPadding;
+                    final maxW = windowH * 1.7776;
+                    final actualW = windowW < maxW ? windowW : maxW;
+
+                    final offsetX = -(sw - actualW) / 2;
+                    final offsetY = -(sh - windowH) / 2;
+
+                    // Compute the exact inverse of the parent's transform
+                    // so the inner blurred bg perfectly cancels out the rotation
+                    final parentTransform = Matrix4.identity()
+                      ..setEntry(3, 2, 0.001)
+                      ..rotateX(isMouseConnected ? _rotationX : 0)
+                      ..rotateY(isMouseConnected ? _rotationY : 0);
+                    final inverseTransform = Matrix4.copy(parentTransform)
+                      ..invert();
+
+                    return ClipRRect(
+                      borderRadius:
+                          BorderRadius.circular(AppSizes.mediumPadding),
+                      child: SizedBox(
+                        width: actualW,
+                        height: windowH,
+                        child: Stack(
+                          clipBehavior: Clip.hardEdge,
+                          children: [
+                            // Counter-rotated blurred background:
+                            // Rotates opposite to the parent Transform,
+                            // so it appears stationary — matching the
+                            // real static background behind the window.
+                            Transform(
+                              alignment: FractionalOffset.center,
+                              transform: inverseTransform,
+                              child: OverflowBox(
+                                maxWidth: sw,
+                                maxHeight: sh,
+                                child: ImageFiltered(
+                                  imageFilter: ImageFilter.blur(
+                                      sigmaX: 5, sigmaY: 5),
+                                  child: Image.asset(
+                                    "assets/images/bg.jpg",
+                                    width: sw,
+                                    height: sh,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            // Subtle tint for readability
+                            Positioned.fill(
+                              child: Container(
+                                color: Colors.black.withValues(alpha: 0.05),
+                              ),
+                            ),
+                            // Window content
+                            const Positioned.fill(
+                              child: MainWindow(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
             ).animate().fadeIn(
                   duration: const Duration(milliseconds: 100),

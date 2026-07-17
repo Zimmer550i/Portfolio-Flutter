@@ -6,7 +6,7 @@ import 'package:portfolio_flutter/pages/project_page.dart';
 import 'package:portfolio_flutter/project_model.dart';
 
 class AppContents {
-  static const double rotationMultiplier = 3;
+  static const double rotationMultiplier = 2;
 
   static const List<String> tabs = [
     "Profile",
