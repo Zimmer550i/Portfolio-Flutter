@@ -84,8 +84,6 @@ class AppState extends State<App> {
                     final maxW = windowH * 1.7776;
                     final actualW = windowW < maxW ? windowW : maxW;
 
-                    final offsetX = -(sw - actualW) / 2;
-                    final offsetY = -(sh - windowH) / 2;
 
                     // Compute the exact inverse of the parent's transform
                     // so the inner blurred bg perfectly cancels out the rotation
