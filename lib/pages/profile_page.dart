@@ -1,24 +1,20 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio_flutter/utils/app_sizes.dart';
-import 'package:portfolio_flutter/utils/is_mobile.dart';
+import 'package:portfolio_flutter/config/app_sizes.dart';
+import 'package:portfolio_flutter/services/analytics_service.dart';
+import 'package:portfolio_flutter/utils/responsive.dart';
 import 'package:portfolio_flutter/widgets/profile_image_section.dart';
 import 'package:portfolio_flutter/widgets/profile_details_section.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
-  static bool loggedOnce = false;
-  void logScreenEvent() async {
-    await FirebaseAnalytics.instance
-        .logScreenView(screenName: "Project Screen");
-  }
+  static bool _loggedOnce = false;
 
   @override
   Widget build(BuildContext context) {
-    if (!loggedOnce) {
-      logScreenEvent();
-      loggedOnce = true;
+    if (!_loggedOnce) {
+      AnalyticsService.logScreenView("Profile Screen");
+      _loggedOnce = true;
     }
 
     return LayoutBuilder(builder: (context, constraints) {
@@ -29,10 +25,10 @@ class ProfilePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: AppSizes.largePadding,),
+                SizedBox(height: AppSizes.largePadding),
                 ProfileImageSection(),
                 ProfileDetailsSection(),
-                SizedBox(height: AppSizes.largePadding,),
+                SizedBox(height: AppSizes.largePadding),
               ],
             ),
           ),
@@ -40,12 +36,8 @@ class ProfilePage extends StatelessWidget {
       }
       return const Row(
         children: [
-          Expanded(
-            child: ProfileImageSection(),
-          ),
-          Expanded(
-            child: ProfileDetailsSection(),
-          ),
+          Expanded(child: ProfileImageSection()),
+          Expanded(child: ProfileDetailsSection()),
         ],
       );
     });

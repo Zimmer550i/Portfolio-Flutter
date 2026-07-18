@@ -1,9 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:portfolio_flutter/app.dart';
-import 'package:portfolio_flutter/utils/app_colors.dart';
+import 'package:portfolio_flutter/config/app_theme.dart';
+import 'package:portfolio_flutter/services/settings_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:portfolio_flutter/utils/firebase_options.dart';
+import 'package:portfolio_flutter/services/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,27 +26,48 @@ Future<void> main() async {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final _settings = SettingsProvider();
+
+  @override
+  void dispose() {
+    _settings.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Zimmer550i',
-      scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
-        PointerDeviceKind.mouse,
-        PointerDeviceKind.touch,
-        PointerDeviceKind.stylus,
-        PointerDeviceKind.invertedStylus,
-        PointerDeviceKind.trackpad,
-        PointerDeviceKind.unknown,
-      }),
-      theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-          scaffoldBackgroundColor: AppColors.backgroundColor),
-      home: const App(),
+    return ListenableBuilder(
+      listenable: _settings,
+      builder: (context, _) {
+        return SettingsScope(
+          settings: _settings,
+          child: MaterialApp(
+            title: 'Zimmer550i',
+            debugShowCheckedModeBanner: false,
+            scrollBehavior:
+                const MaterialScrollBehavior().copyWith(dragDevices: {
+              PointerDeviceKind.mouse,
+              PointerDeviceKind.touch,
+              PointerDeviceKind.stylus,
+              PointerDeviceKind.invertedStylus,
+              PointerDeviceKind.trackpad,
+              PointerDeviceKind.unknown,
+            }),
+            theme: buildLightTheme(_settings.accentColor),
+            darkTheme: buildDarkTheme(_settings.accentColor),
+            themeMode: _settings.themeMode,
+            home: const App(),
+          ),
+        );
+      },
     );
   }
 }

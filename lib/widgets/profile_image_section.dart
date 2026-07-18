@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio_flutter/utils/app_colors.dart';
-import 'package:portfolio_flutter/utils/app_contents.dart';
-import 'package:portfolio_flutter/utils/app_sizes.dart';
-import 'package:portfolio_flutter/utils/is_mobile.dart';
+import 'package:portfolio_flutter/config/app_contents.dart';
+import 'package:portfolio_flutter/config/app_sizes.dart';
+import 'package:portfolio_flutter/config/app_theme.dart';
+import 'package:portfolio_flutter/utils/responsive.dart';
 import 'package:portfolio_flutter/widgets/social_button.dart';
 
 class ProfileImageSection extends StatelessWidget {
-  const ProfileImageSection({
-    super.key,
-  });
+  const ProfileImageSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).extension<PortfolioTheme>()!;
+
     return LayoutBuilder(builder: (context, constraint) {
       return Column(
         mainAxisSize: MainAxisSize.min,
@@ -19,25 +19,25 @@ class ProfileImageSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height: getSize(context, constraint),
-            width: getSize(context, constraint),
+            height: _getSize(context, constraint),
+            width: _getSize(context, constraint),
             decoration: BoxDecoration(
-              border: Border.all(width: AppSizes.smallPadding),
+              border: Border.all(
+                width: AppSizes.smallPadding,
+                color: theme.cardBorder,
+              ),
               borderRadius: BorderRadius.circular(AppSizes.mediumPadding),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(AppSizes.smallPadding),
               child: Image.asset(
                 AppContents.profileImgAsset,
-                frameBuilder: (BuildContext context, Widget child, int? frame,
-                    bool wasSynchronouslyLoaded) {
-                  if (wasSynchronouslyLoaded) {
-                    return child;
-                  }
+                frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                  if (wasSynchronouslyLoaded) return child;
                   return frame == null
-                      ? const Center(
+                      ? Center(
                           child: CircularProgressIndicator(
-                            color: AppColors.black,
+                            color: theme.accentColor,
                             strokeCap: StrokeCap.round,
                             strokeWidth: 8,
                           ),
@@ -47,30 +47,25 @@ class ProfileImageSection extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: AppSizes.mediumPadding,
-          ),
+          const SizedBox(height: AppSizes.mediumPadding),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ...AppContents.social.map((e) {
-                return Padding(
-                  padding: const EdgeInsets.only(right: AppSizes.mediumPadding),
-                  child: SocialButton(
-                    imgAsset: e["icon"]!,
-                    url: e["link"]!,
-                    // size: constraint.maxWidth < constraint.maxHeight / 1.5 ? constraint.maxWidth / 10.5 : constraint.maxHeight /20,
-                  ),
-                );
-              })
-            ],
+            children: AppContents.social.map((e) {
+              return Padding(
+                padding: const EdgeInsets.only(right: AppSizes.mediumPadding),
+                child: SocialButton(
+                  imgAsset: e["icon"]!,
+                  url: e["link"]!,
+                ),
+              );
+            }).toList(),
           ),
         ],
       );
     });
   }
 
-  double getSize(BuildContext context, BoxConstraints constraint) {
+  double _getSize(BuildContext context, BoxConstraints constraint) {
     if (isMobile(context)) {
       return constraint.maxWidth / 1.5;
     }

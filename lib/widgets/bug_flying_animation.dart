@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:portfolio_flutter/utils/log_event.dart';
+import 'package:portfolio_flutter/services/analytics_service.dart';
 
 class BugFlyingAnimation extends StatefulWidget {
   final Size size;
@@ -34,47 +34,40 @@ class BugFlyingAnimationState extends State<BugFlyingAnimation>
   }
 
   void _onTick(Duration elapsed) {
-    if (isMoving) {
-      setState(() {
-        // Calculate direction to target
-        double deltaX = _targetX - _x;
-        double deltaY = _targetY - _y;
-        double targetAngle = atan2(deltaY, deltaX);
+    if (!isMoving) return;
 
-        setState(() {
-          showFirst = !showFirst;
-        });
+    setState(() {
+      // Toggle wing frame
+      showFirst = !showFirst;
 
-        // Gradually rotate towards target angle
-        double angleDifference = targetAngle - _angle;
-        angleDifference =
-            (angleDifference + pi) % (2 * pi) - pi; // Normalize to [-pi, pi]
+      // Calculate direction to target
+      double deltaX = _targetX - _x;
+      double deltaY = _targetY - _y;
+      double targetAngle = atan2(deltaY, deltaX);
 
-        if (dist() > widget.size.shortestSide / 3) {
-          _rotationSpeed = 0.05;
-        } else {
-          _rotationSpeed = 0.2;
-        }
-        if (angleDifference.abs() < _rotationSpeed) {
-          _angle = targetAngle; // Snap to target angle if close enough
-        } else {
-          _angle += angleDifference.sign * _rotationSpeed;
-        }
+      // Gradually rotate towards target angle
+      double angleDifference = targetAngle - _angle;
+      angleDifference = (angleDifference + pi) % (2 * pi) - pi;
 
-        // Move forward in the current direction
-        _speed = dist() / 10;
-        _speed = _speed > _maxSpeed ? _maxSpeed : _speed;
-        _x += cos(_angle) * _speed;
-        _y += sin(_angle) * _speed;
+      _rotationSpeed =
+          dist() > widget.size.shortestSide / 3 ? 0.05 : 0.2;
 
-        // Check if close enough to the target to set a new one
-        if (dist() < 50) {
-          setState(() {
-            isMoving = false;
-          });
-        }
-      });
-    }
+      if (angleDifference.abs() < _rotationSpeed) {
+        _angle = targetAngle;
+      } else {
+        _angle += angleDifference.sign * _rotationSpeed;
+      }
+
+      // Move forward
+      _speed = (dist() / 10).clamp(0, _maxSpeed);
+      _x += cos(_angle) * _speed;
+      _y += sin(_angle) * _speed;
+
+      // Check if close enough to set a new target
+      if (dist() < 50) {
+        isMoving = false;
+      }
+    });
   }
 
   double dist() {
@@ -107,8 +100,8 @@ class BugFlyingAnimationState extends State<BugFlyingAnimation>
       child: Transform.rotate(
         angle: _angle,
         child: MouseRegion(
-          onHover: (event) {
-            logCustomEvent("Playing with the Bug");
+          onHover: (_) {
+            AnalyticsService.logCustomEvent("Playing with the Bug");
             setState(() {
               isMoving = true;
               _setNewTarget();

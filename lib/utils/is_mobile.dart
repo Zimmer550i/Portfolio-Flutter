@@ -1,5 +1,1 @@
-import 'package:flutter/material.dart';
-
-bool isMobile(BuildContext context) {
-  return MediaQuery.of(context).size.width < MediaQuery.of(context).size.height;
-}
+// Replaced by lib/utils/responsive.dart — this file is no longer used.

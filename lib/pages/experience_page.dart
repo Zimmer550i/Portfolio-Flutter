@@ -1,34 +1,30 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio_flutter/utils/app_sizes.dart';
-import 'package:portfolio_flutter/utils/is_mobile.dart';
+import 'package:portfolio_flutter/config/app_sizes.dart';
+import 'package:portfolio_flutter/config/app_theme.dart';
+import 'package:portfolio_flutter/services/analytics_service.dart';
+import 'package:portfolio_flutter/utils/responsive.dart';
 import 'package:portfolio_flutter/widgets/bug_flying_animation.dart';
 import 'package:portfolio_flutter/widgets/custom_button.dart';
 
 class ExperiencePage extends StatelessWidget {
   const ExperiencePage({super.key});
 
-  static bool loggedOnce = false;
-  void logScreenEvent() async {
-    await FirebaseAnalytics.instance
-        .logScreenView(screenName: "Project Screen");
-  }
+  static bool _loggedOnce = false;
 
   @override
   Widget build(BuildContext context) {
-    if (!loggedOnce) {
-      logScreenEvent();
-      loggedOnce = true;
+    if (!_loggedOnce) {
+      AnalyticsService.logScreenView("Experience Screen");
+      _loggedOnce = true;
     }
+
+    final theme = Theme.of(context).extension<PortfolioTheme>()!;
+
     return LayoutBuilder(builder: (context, constraints) {
       return Stack(
         clipBehavior: Clip.none,
         children: [
-          const Positioned(
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
+          Positioned.fill(
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -36,17 +32,29 @@ class ExperiencePage extends StatelessWidget {
                   FittedBox(
                     child: Text(
                       "No Experiences",
-                      style: TextStyle(fontFamily: "Custom", fontSize: 90),
+                      style: TextStyle(
+                        fontFamily: "Custom",
+                        fontSize: 90,
+                        color: theme.headingColor,
+                        shadows: const [
+                          Shadow(color: Colors.black38, blurRadius: 5),
+                        ],
+                      ),
                     ),
                   ),
                   Text(
                     "maybe you can help me get some",
-                    style: TextStyle(fontFamily: "Custom", fontSize: 42),
+                    style: TextStyle(
+                      fontFamily: "Custom",
+                      fontSize: 42,
+                      color: theme.bodyTextColor,
+                      shadows: const [
+                        Shadow(color: Colors.black38, blurRadius: 5),
+                      ],
+                    ),
                   ),
-                  SizedBox(
-                    height: AppSizes.largePadding,
-                  ),
-                  CustomButton(
+                  const SizedBox(height: AppSizes.largePadding),
+                  const CustomButton(
                     link: "mailto:sakif049@gmail.com",
                     icon: Icons.work_rounded,
                     text: "Hire Me",
@@ -56,7 +64,9 @@ class ExperiencePage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: isMobile(context) ? -AppSizes.mediumPadding : -AppSizes.largePadding,
+            top: isMobile(context)
+                ? -AppSizes.mediumPadding
+                : -AppSizes.largePadding,
             left: isMobile(context) ? -AppSizes.largePadding : 0,
             child: Image.asset(
               "assets/images/web_1.png",
@@ -78,11 +88,10 @@ class ExperiencePage extends StatelessWidget {
               ),
             ),
           ),
-          isMobile(context)
-              ? Container()
-              : BugFlyingAnimation(
-                  size: Size(constraints.maxWidth, constraints.maxHeight),
-                ),
+          if (!isMobile(context))
+            BugFlyingAnimation(
+              size: Size(constraints.maxWidth, constraints.maxHeight),
+            ),
         ],
       );
     });

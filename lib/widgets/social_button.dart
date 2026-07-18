@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:portfolio_flutter/utils/app_colors.dart';
-import 'package:portfolio_flutter/utils/app_sizes.dart';
+import 'package:portfolio_flutter/config/app_sizes.dart';
+import 'package:portfolio_flutter/config/app_theme.dart';
+import 'package:portfolio_flutter/services/analytics_service.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-
-import '../utils/log_event.dart';
 
 class SocialButton extends StatefulWidget {
   final String imgAsset;
   final String url;
   final double size;
+
   const SocialButton({
     super.key,
     this.size = AppSizes.iconSizeSmall,
@@ -23,39 +23,37 @@ class SocialButton extends StatefulWidget {
 
 class _SocialButtonState extends State<SocialButton> {
   bool isFocused = false;
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).extension<PortfolioTheme>()!;
+
     return MouseRegion(
-      onEnter: (event) {
-        setState(() {
-          isFocused = true;
-        });
-      },
-      onExit: (event) {
-        setState(() {
-          isFocused = false;
-        });
-      },
+      onEnter: (_) => setState(() => isFocused = true),
+      onExit: (_) => setState(() => isFocused = false),
       child: GestureDetector(
         onTap: () {
           launchUrlString(widget.url);
-          logCustomEvent("Button Pressed: ${widget.url}");
+          AnalyticsService.logCustomEvent("Button Pressed: ${widget.url}");
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           decoration: BoxDecoration(
-            color: isFocused ? AppColors.black : null,
+            color: isFocused ? theme.buttonHoverBackground : null,
             borderRadius: BorderRadius.circular(AppSizes.smallPadding),
             border: Border.all(
               width: AppSizes.smallPadding / 2,
+              color: theme.cardBorder,
             ),
           ),
           padding: EdgeInsets.all(widget.size / 10),
           child: SvgPicture.asset(
             widget.imgAsset,
             width: widget.size,
-            // ignore: deprecated_member_use
-            color: isFocused ? AppColors.backgroundColor : AppColors.black,
+            colorFilter: ColorFilter.mode(
+              isFocused ? theme.buttonHoverText : theme.buttonText,
+              BlendMode.srcIn,
+            ),
           ),
         ),
       ),

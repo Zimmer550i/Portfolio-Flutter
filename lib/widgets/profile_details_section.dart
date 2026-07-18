@@ -1,14 +1,12 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio_flutter/utils/app_contents.dart';
-import 'package:portfolio_flutter/utils/app_sizes.dart';
-import 'package:portfolio_flutter/utils/app_texts.dart';
+import 'package:portfolio_flutter/config/app_contents.dart';
+import 'package:portfolio_flutter/config/app_sizes.dart';
+import 'package:portfolio_flutter/config/app_texts.dart';
 import 'package:portfolio_flutter/widgets/custom_button.dart';
 
 class ProfileDetailsSection extends StatelessWidget {
-  const ProfileDetailsSection({
-    super.key,
-  });
+  const ProfileDetailsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +14,7 @@ class ProfileDetailsSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Hi, I am",
-          style: AppTexts.bodyText,
-        ),
+        Text("Hi, I am", style: AppTexts.bodyText(context)),
         AnimatedTextKit(
           repeatForever: true,
           pause: const Duration(seconds: 3),
@@ -27,29 +22,31 @@ class ProfileDetailsSection extends StatelessWidget {
             TypewriterAnimatedText(
               "MD Wasiul Islam",
               speed: const Duration(milliseconds: 60),
-              textStyle: AppTexts.tabText.copyWith(fontSize: 48),
+              textStyle: AppTexts.tabText(context).copyWith(fontSize: 48),
             ),
             TypewriterAnimatedText(
               "Zimmer550i",
               speed: const Duration(milliseconds: 60),
-              textStyle: AppTexts.tabText
-                  .copyWith(fontWeight: FontWeight.w900, fontSize: 48),
+              textStyle: AppTexts.tabText(context).copyWith(
+                fontWeight: FontWeight.w900,
+                fontSize: 48,
+              ),
             ),
           ],
         ),
         LayoutBuilder(builder: (context, constraints) {
-          double width = constraints.maxWidth * 0.8;
           return SizedBox(
-            width: width,
-            child: const Text(
+            width: constraints.maxWidth * 0.8,
+            child: Text(
               AppContents.profileDescription,
-              style: AppTexts.bodyTextLarge,
+              style: AppTexts.bodyTextLarge(context),
             ),
           );
         }),
         FittedBox(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: AppSizes.mediumPadding),
+            padding:
+                const EdgeInsets.symmetric(vertical: AppSizes.mediumPadding),
             child: Row(
               children: [
                 CustomButton(
@@ -57,9 +54,7 @@ class ProfileDetailsSection extends StatelessWidget {
                   text: "Get CV",
                   link: "${Uri.base.toString()}/${AppContents.cvFileName}",
                 ),
-                const SizedBox(
-                  width: AppSizes.mediumPadding,
-                ),
+                const SizedBox(width: AppSizes.mediumPadding),
                 const CustomButton(
                   icon: Icons.email_rounded,
                   text: "Contact Me",

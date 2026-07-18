@@ -1,72 +1,59 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:portfolio_flutter/utils/app_contents.dart';
-import 'package:portfolio_flutter/utils/app_sizes.dart';
-import 'package:portfolio_flutter/utils/app_texts.dart';
-import 'package:portfolio_flutter/utils/is_mobile.dart';
+import 'package:portfolio_flutter/config/app_contents.dart';
+import 'package:portfolio_flutter/config/app_sizes.dart';
+import 'package:portfolio_flutter/config/app_texts.dart';
+import 'package:portfolio_flutter/config/app_theme.dart';
+import 'package:portfolio_flutter/services/analytics_service.dart';
+import 'package:portfolio_flutter/utils/responsive.dart';
 import 'package:portfolio_flutter/widgets/info_structure.dart';
 
 class InfoPage extends StatelessWidget {
-  static bool loggedOnce = false;
   const InfoPage({super.key});
 
-  void logScreenEvent() async {
-    await FirebaseAnalytics.instance
-        .logScreenView(screenName: "Project Screen");
-  }
+  static bool _loggedOnce = false;
 
   @override
   Widget build(BuildContext context) {
-    if (!loggedOnce) {
-      logScreenEvent();
-      loggedOnce = true;
+    if (!_loggedOnce) {
+      AnalyticsService.logScreenView("Info Screen");
+      _loggedOnce = true;
     }
+
+    final theme = Theme.of(context).extension<PortfolioTheme>()!;
+
     return LayoutBuilder(builder: (context, constraints) {
       if (isMobile(context)) {
         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: AppSizes.largePadding,
-              ),
-              aboutMe(),
-              const SizedBox(
-                height: AppSizes.largePadding,
-              ),
-              skills(),
-              const SizedBox(
-                height: AppSizes.largePadding,
-              ),
+              const SizedBox(height: AppSizes.largePadding),
+              _aboutMe(context),
+              const SizedBox(height: AppSizes.largePadding),
+              _skills(context, theme),
+              const SizedBox(height: AppSizes.largePadding),
               InfoStructure(
                 title: "I've Worked With:",
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    technologies(),
-                    const SizedBox(
-                      height: AppSizes.mediumPadding,
-                    ),
-                    languages(),
+                    _technologies(),
+                    const SizedBox(height: AppSizes.mediumPadding),
+                    _languages(),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: AppSizes.largePadding,
-              ),
-              education(),
-              const SizedBox(
-                height: AppSizes.largePadding,
-              ),
-              contactInfo(),
-              const SizedBox(
-                height: AppSizes.largePadding,
-              ),
+              const SizedBox(height: AppSizes.largePadding),
+              _education(context),
+              const SizedBox(height: AppSizes.largePadding),
+              _contactInfo(context, theme),
+              const SizedBox(height: AppSizes.largePadding),
             ],
           ),
         );
       }
+
       return Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: constraints.maxHeight * 1.3),
@@ -77,28 +64,20 @@ class InfoPage extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(flex: 3, child: aboutMe()),
-                    const SizedBox(
-                      width: AppSizes.largePadding,
-                    ),
-                    Expanded(flex: 2, child: skills()),
+                    Expanded(flex: 3, child: _aboutMe(context)),
+                    const SizedBox(width: AppSizes.largePadding),
+                    Expanded(flex: 2, child: _skills(context, theme)),
                   ],
                 ),
-                const SizedBox(
-                  height: AppSizes.largePadding,
-                ),
-                workedWith(),
-                const SizedBox(
-                  height: AppSizes.largePadding,
-                ),
+                const SizedBox(height: AppSizes.largePadding),
+                _workedWith(),
+                const SizedBox(height: AppSizes.largePadding),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(flex: 3, child: education()),
-                    const SizedBox(
-                      width: AppSizes.largePadding,
-                    ),
-                    Expanded(flex: 2, child: contactInfo()),
+                    Expanded(flex: 3, child: _education(context)),
+                    const SizedBox(width: AppSizes.largePadding),
+                    Expanded(flex: 2, child: _contactInfo(context, theme)),
                   ],
                 ),
               ],
@@ -109,46 +88,21 @@ class InfoPage extends StatelessWidget {
     });
   }
 
-  workedWith() {
+  Widget _workedWith() {
     return InfoStructure(
       title: "I've Worked With",
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: technologies(),
-          ),
-          const SizedBox(
-            width: AppSizes.largePadding,
-          ),
-          Expanded(
-            child: languages(),
-          ),
-          // const SizedBox(
-          //   width: AppSizes.largePadding,
-          // ),
-          // Expanded(
-          //   child: InfoStructure(
-          //     title: "Tools",
-          //     isSubTitle: true,
-          //     child: Wrap(
-          //       spacing: AppSizes.smallPadding,
-          //       runSpacing: AppSizes.smallPadding,
-          //       children: [
-          //         Image.asset("assets/logos/git.png", height: 36),
-          //         Image.asset("assets/logos/xampp.png", height: 36),
-          //         Image.asset("assets/logos/docker.png", height: 36),
-          //         Image.asset("assets/logos/cpanel.png", height: 36, width: 72,),
-          //       ],
-          //     ),
-          //   ),
-          // ),
+          Expanded(child: _technologies()),
+          const SizedBox(width: AppSizes.largePadding),
+          Expanded(child: _languages()),
         ],
       ),
     );
   }
 
-  InfoStructure languages() {
+  Widget _languages() {
     return InfoStructure(
       title: "Languages",
       isSubTitle: true,
@@ -162,11 +116,8 @@ class InfoPage extends StatelessWidget {
           Image.asset("assets/logos/python.png", height: 36),
           Image.asset("assets/logos/js.png", height: 36),
           Image.asset("assets/logos/java.png", height: 36),
-          Image.asset(
-            "assets/logos/php.png",
-            height: 36,
-            filterQuality: FilterQuality.high,
-          ),
+          Image.asset("assets/logos/php.png",
+              height: 36, filterQuality: FilterQuality.high),
           Image.asset("assets/logos/bash.png", height: 36),
           Image.asset("assets/logos/dart.png", height: 36),
           Image.asset("assets/logos/sql.png", height: 36),
@@ -175,7 +126,7 @@ class InfoPage extends StatelessWidget {
     );
   }
 
-  InfoStructure technologies() {
+  Widget _technologies() {
     return InfoStructure(
       title: "Technologies",
       isSubTitle: true,
@@ -189,30 +140,27 @@ class InfoPage extends StatelessWidget {
           Image.asset("assets/logos/xampp.png", height: 36),
           Image.asset("assets/logos/docker.png", height: 36),
           Image.asset("assets/logos/postman.png", height: 36),
-          Image.asset(
-            "assets/logos/cpanel.png",
-            height: 36,
-            width: 72,
-          ),
+          Image.asset("assets/logos/cpanel.png", height: 36, width: 72),
           Transform.translate(
-              offset: const Offset(0, -18),
-              child: Image.asset("assets/logos/lamp.png", height: 48)),
+            offset: const Offset(0, -18),
+            child: Image.asset("assets/logos/lamp.png", height: 48),
+          ),
         ],
       ),
     );
   }
 
-  aboutMe() {
-    return const InfoStructure(
+  Widget _aboutMe(BuildContext context) {
+    return InfoStructure(
       title: "About Me",
       child: Text(
         AppContents.detailedDescription,
-        style: AppTexts.bodyTextLarge,
+        style: AppTexts.bodyTextLarge(context),
       ),
     );
   }
 
-  education() {
+  Widget _education(BuildContext context) {
     return InfoStructure(
       title: "Education",
       child: Column(
@@ -220,89 +168,71 @@ class InfoPage extends StatelessWidget {
         children: [
           Text(
             "Daffodil International University",
-            style: AppTexts.bodyTextLarge.copyWith(
+            style: AppTexts.bodyTextLarge(context).copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
-          const Text(
+          Text(
             "Computer Science and Engineering",
-            style: AppTexts.bodyText,
+            style: AppTexts.bodyText(context),
           ),
-          const Text(
+          Text(
             "Graduation: Dec 2024",
-            style: AppTexts.bodyText,
+            style: AppTexts.bodyText(context),
           ),
         ],
       ),
     );
   }
 
-  skills() {
+  Widget _skills(BuildContext context, PortfolioTheme theme) {
     return InfoStructure(
       title: "Skills",
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ...AppContents.skills.map(
-            (e) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: AppSizes.mediumPadding),
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      "assets/icons/arrow_forward.svg",
-                      height: AppSizes.iconSizeSmall,
-                    ),
-                    const SizedBox(
-                      width: AppSizes.mediumPadding,
-                    ),
-                    Expanded(
-                        child: Text(
-                      e,
-                      style: AppTexts.bodyTextLarge,
-                    )),
-                  ],
+        children: AppContents.skills.map((e) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom: AppSizes.mediumPadding),
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  "assets/icons/arrow_forward.svg",
+                  height: AppSizes.iconSizeSmall,
+                  colorFilter: ColorFilter.mode(
+                    theme.iconColor,
+                    BlendMode.srcIn,
+                  ),
                 ),
-              );
-            },
-          )
-        ],
+                const SizedBox(width: AppSizes.mediumPadding),
+                Expanded(
+                  child: Text(e, style: AppTexts.bodyTextLarge(context)),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
       ),
     );
   }
 
-  contactInfo() {
-    return const InfoStructure(
+  Widget _contactInfo(BuildContext context, PortfolioTheme theme) {
+    return InfoStructure(
       title: "Contact",
       child: Column(
         children: [
           Row(
             children: [
-              Icon(Icons.email_rounded),
-              SizedBox(
-                width: AppSizes.mediumPadding,
-              ),
-              Text(
-                "sakif049@gmail.com",
-                style: AppTexts.bodyText,
-              ),
+              Icon(Icons.email_rounded, color: theme.iconColor),
+              const SizedBox(width: AppSizes.mediumPadding),
+              Text("sakif049@gmail.com", style: AppTexts.bodyText(context)),
             ],
           ),
-          SizedBox(
-            height: AppSizes.mediumPadding,
-          ),
+          const SizedBox(height: AppSizes.mediumPadding),
           Row(
             children: [
-              Icon(
-                Icons.location_pin,
-              ),
-              SizedBox(
-                width: AppSizes.mediumPadding,
-              ),
-              Text(
-                "Dhaka, Bangladesh",
-                style: AppTexts.bodyText,
-              ),
+              Icon(Icons.location_pin, color: theme.iconColor),
+              const SizedBox(width: AppSizes.mediumPadding),
+              Text("Dhaka, Bangladesh", style: AppTexts.bodyText(context)),
             ],
           ),
         ],

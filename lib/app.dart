@@ -1,22 +1,24 @@
 import 'dart:math';
 import 'dart:ui';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:portfolio_flutter/utils/app_contents.dart';
-import 'package:portfolio_flutter/utils/app_sizes.dart';
-import 'package:portfolio_flutter/utils/is_mobile.dart';
+import 'package:portfolio_flutter/config/app_contents.dart';
+import 'package:portfolio_flutter/config/app_sizes.dart';
+import 'package:portfolio_flutter/config/app_theme.dart';
+import 'package:portfolio_flutter/services/settings_provider.dart';
+import 'package:portfolio_flutter/utils/responsive.dart';
 import 'package:portfolio_flutter/widgets/main_window.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
 
   @override
-  State<App> createState() => AppState();
+  State<App> createState() => _AppState();
 }
 
-class AppState extends State<App> {
+class _AppState extends State<App> {
   double _rotationX = 0;
   double _rotationY = 0;
   double mouseX = 0;
@@ -50,27 +52,28 @@ class AppState extends State<App> {
         ),
       );
     }
+
+    final settings = SettingsScope.of(context);
+    final theme = Theme.of(context).extension<PortfolioTheme>()!;
+    final bgImage = settings.backgroundImage;
+
     return Scaffold(
       body: MouseRegion(
         cursor: SystemMouseCursors.none,
         onHover: (event) {
-          _updateRotationAngles(
-            event,
-            MediaQuery.of(context).size,
-          );
+          _updateRotationAngles(event, MediaQuery.of(context).size);
         },
         child: Stack(
           children: [
+            // Static background
             Positioned.fill(
-              child: Image.asset(
-                "assets/images/bg.jpg",
-                fit: BoxFit.cover,
-              ),
+              child: Image.asset(bgImage, fit: BoxFit.cover),
             ),
+            // 3D perspective window
             Transform(
               alignment: FractionalOffset.center,
               transform: Matrix4.identity()
-                ..setEntry(3, 2, 0.001) // Perspective Formula
+                ..setEntry(3, 2, 0.001)
                 ..rotateX(isMouseConnected ? _rotationX : 0)
                 ..rotateY(isMouseConnected ? _rotationY : 0),
               child: Center(
@@ -83,7 +86,6 @@ class AppState extends State<App> {
                     final windowH = sh * AppSizes.webPadding;
                     final maxW = windowH * 1.7776;
                     final actualW = windowW < maxW ? windowW : maxW;
-
 
                     // Compute the exact inverse of the parent's transform
                     // so the inner blurred bg perfectly cancels out the rotation
@@ -103,38 +105,33 @@ class AppState extends State<App> {
                         child: Stack(
                           clipBehavior: Clip.hardEdge,
                           children: [
-                            // Counter-rotated blurred background:
-                            // Rotates opposite to the parent Transform,
-                            // so it appears stationary — matching the
-                            // real static background behind the window.
-                            Transform(
-                              alignment: FractionalOffset.center,
-                              transform: inverseTransform,
-                              child: OverflowBox(
-                                maxWidth: sw,
-                                maxHeight: sh,
-                                child: ImageFiltered(
-                                  imageFilter: ImageFilter.blur(
-                                      sigmaX: 5, sigmaY: 5),
-                                  child: Image.asset(
-                                    "assets/images/bg.jpg",
-                                    width: sw,
-                                    height: sh,
-                                    fit: BoxFit.cover,
+                            // Counter-rotated blurred background
+                            RepaintBoundary(
+                              child: Transform(
+                                alignment: FractionalOffset.center,
+                                transform: inverseTransform,
+                                child: OverflowBox(
+                                  maxWidth: sw,
+                                  maxHeight: sh,
+                                  child: ImageFiltered(
+                                    imageFilter: ImageFilter.blur(
+                                        sigmaX: 5, sigmaY: 5),
+                                    child: Image.asset(
+                                      bgImage,
+                                      width: sw,
+                                      height: sh,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                            // Subtle tint for readability
+                            // Tint overlay
                             Positioned.fill(
-                              child: Container(
-                                color: Colors.black.withValues(alpha: 0.05),
-                              ),
+                              child: Container(color: theme.windowTint),
                             ),
                             // Window content
-                            const Positioned.fill(
-                              child: MainWindow(),
-                            ),
+                            const Positioned.fill(child: MainWindow()),
                           ],
                         ),
                       ),
@@ -145,18 +142,18 @@ class AppState extends State<App> {
             ).animate().fadeIn(
                   duration: const Duration(milliseconds: 100),
                 ),
-            isMouseConnected
-                ? Positioned(
-                    left: mouseX,
-                    top: mouseY,
-                    child: IgnorePointer(
-                      child: Image.asset(
-                        'assets/icons/cursor.png',
-                        height: AppSizes.iconSizeMedium,
-                      ),
-                    ),
-                  )
-                : Container(),
+            // Custom cursor
+            if (isMouseConnected)
+              Positioned(
+                left: mouseX,
+                top: mouseY,
+                child: IgnorePointer(
+                  child: Image.asset(
+                    'assets/icons/cursor.png',
+                    height: AppSizes.iconSizeMedium,
+                  ),
+                ),
+              ),
           ],
         ),
       ),

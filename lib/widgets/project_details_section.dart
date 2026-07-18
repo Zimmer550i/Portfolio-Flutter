@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:portfolio_flutter/project_model.dart';
-import 'package:portfolio_flutter/utils/app_colors.dart';
-import 'package:portfolio_flutter/utils/app_sizes.dart';
-import 'package:portfolio_flutter/utils/app_texts.dart';
+import 'package:portfolio_flutter/models/project_model.dart';
+import 'package:portfolio_flutter/config/app_sizes.dart';
+import 'package:portfolio_flutter/config/app_texts.dart';
+import 'package:portfolio_flutter/config/app_theme.dart';
 import 'package:portfolio_flutter/widgets/custom_button.dart';
 
 class ProjectDetailsSection extends StatefulWidget {
-  const ProjectDetailsSection({
-    super.key,
-    required this.project,
-  });
+  const ProjectDetailsSection({super.key, required this.project});
 
   final Project project;
 
@@ -19,50 +16,48 @@ class ProjectDetailsSection extends StatefulWidget {
 }
 
 class _ProjectDetailsSectionState extends State<ProjectDetailsSection> {
-  GlobalKey projectInfoKey = GlobalKey();
-  GlobalKey projectLinksKey = GlobalKey();
+  final GlobalKey _projectInfoKey = GlobalKey();
+  final GlobalKey _projectLinksKey = GlobalKey();
   double requiredHeight = 0;
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).extension<PortfolioTheme>()!;
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final double projectInfoHeight = projectInfoKey.currentContext?.size?.height ?? 0;
-      final double projectLinksHeight = projectLinksKey.currentContext?.size?.height ?? 0;
+      final infoH = _projectInfoKey.currentContext?.size?.height ?? 0;
+      final linksH = _projectLinksKey.currentContext?.size?.height ?? 0;
+      final newRequired = infoH + linksH + AppSizes.mediumPadding;
 
-      final double newRequiredHeight = projectInfoHeight + projectLinksHeight + AppSizes.mediumPadding;
-
-      if (newRequiredHeight != requiredHeight) {
-        setState(() {
-          requiredHeight = newRequiredHeight;
-        });
+      if (newRequired != requiredHeight) {
+        setState(() => requiredHeight = newRequired);
       }
     });
 
     return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.hasBoundedHeight && requiredHeight < constraints.maxHeight) {
+      if (constraints.hasBoundedHeight &&
+          requiredHeight < constraints.maxHeight) {
         return Column(
           children: [
-            projectInfo(projectInfoKey),
-            Expanded(child: Container()),
-            projectLinks(projectLinksKey),
+            _projectInfo(_projectInfoKey, theme),
+            const Spacer(),
+            _projectLinks(_projectLinksKey),
           ],
         );
       }
       return SingleChildScrollView(
         child: Column(
           children: [
-            projectInfo(projectInfoKey),
-            const SizedBox(
-              height: AppSizes.mediumPadding,
-            ),
-            projectLinks(projectLinksKey),
+            _projectInfo(_projectInfoKey, theme),
+            const SizedBox(height: AppSizes.mediumPadding),
+            _projectLinks(_projectLinksKey),
           ],
         ),
       );
     });
   }
 
-  Widget projectLinks(GlobalKey key) {
+  Widget _projectLinks(GlobalKey key) {
     return Padding(
       key: key,
       padding: const EdgeInsets.only(bottom: AppSizes.mediumPadding),
@@ -71,71 +66,63 @@ class _ProjectDetailsSectionState extends State<ProjectDetailsSection> {
         runSpacing: AppSizes.smallPadding,
         alignment: WrapAlignment.center,
         children: [
-          for (int i = 0; i < widget.project.links.length; i++)
+          for (final link in widget.project.links)
             CustomButton(
-              icon: widget.project.links[i].icon,
-              svgPath: widget.project.links[i].svgPath,
-              text: widget.project.links[i].name,
-              link: widget.project.links[i].url,
+              icon: link.icon,
+              svgPath: link.svgPath,
+              text: link.name,
+              link: link.url,
             ),
         ],
       ),
     );
   }
 
-  Widget projectInfo(GlobalKey key) {
+  Widget _projectInfo(GlobalKey key, PortfolioTheme theme) {
     return Column(
       key: key,
       children: [
-        const SizedBox(
-          height: AppSizes.mediumPadding,
-        ),
+        const SizedBox(height: AppSizes.mediumPadding),
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
             "Year: ${widget.project.year}",
+            style: AppTexts.bodyText(context),
           ),
         ),
         Text(
           widget.project.description,
           maxLines: 50,
-          style: AppTexts.bodyText,
+          style: AppTexts.bodyText(context),
         ),
-        const SizedBox(
-          height: AppSizes.smallPadding,
-        ),
+        const SizedBox(height: AppSizes.smallPadding),
         Align(
           alignment: Alignment.centerLeft,
           child: Wrap(
             alignment: WrapAlignment.start,
             spacing: AppSizes.smallPadding,
             runSpacing: AppSizes.smallPadding,
-            children: [
-              ...widget.project.tech.map((item) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppSizes.smallPadding),
-                  decoration: BoxDecoration(
-                    color: AppColors.black,
-                    borderRadius: BorderRadius.circular(
-                      AppSizes.largePadding,
-                    ),
+            children: widget.project.tech.map((item) {
+              return Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSizes.smallPadding,
+                ),
+                decoration: BoxDecoration(
+                  color: theme.chipBackground,
+                  borderRadius: BorderRadius.circular(AppSizes.largePadding),
+                ),
+                child: Text(
+                  item,
+                  style: AppTexts.bodyText(context).copyWith(
+                    color: theme.chipText,
                   ),
-                  child: Text(
-                    item,
-                    style: AppTexts.bodyText.copyWith(
-                      color: AppColors.backgroundColor,
-                    ),
-                  ),
-                );
-              }),
-            ],
+                ),
+              );
+            }).toList(),
           ),
         ),
-        const SizedBox(
-          height: AppSizes.mediumPadding,
-        ),
-        for (int i = 0; i < widget.project.highlight.length; i++)
+        const SizedBox(height: AppSizes.mediumPadding),
+        for (final highlight in widget.project.highlight)
           Padding(
             padding: const EdgeInsets.only(bottom: AppSizes.smallPadding),
             child: Row(
@@ -144,14 +131,16 @@ class _ProjectDetailsSectionState extends State<ProjectDetailsSection> {
                 SvgPicture.asset(
                   "assets/icons/dot.svg",
                   height: AppSizes.iconSizeSmall,
+                  colorFilter: ColorFilter.mode(
+                    theme.iconColor,
+                    BlendMode.srcIn,
+                  ),
                 ),
-                const SizedBox(
-                  width: AppSizes.mediumPadding,
-                ),
+                const SizedBox(width: AppSizes.mediumPadding),
                 Expanded(
                   child: Text(
-                    widget.project.highlight[i],
-                    style: AppTexts.bodyTextLarge,
+                    highlight,
+                    style: AppTexts.bodyTextLarge(context),
                     maxLines: 5,
                   ),
                 ),
